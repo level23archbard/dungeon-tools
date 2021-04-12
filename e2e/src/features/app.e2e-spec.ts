@@ -1,16 +1,16 @@
 import { browser, logging } from 'protractor';
-import { AppPage } from './app.po';
+import { AppPage } from '../pages/app.po';
 
-describe('workspace-project App', () => {
+describe('Main App', () => {
   let page: AppPage;
 
   beforeEach(() => {
     page = new AppPage();
   });
 
-  it('should display welcome message', async () => {
+  it('should display app title', async () => {
     await page.navigateTo();
-    expect(await page.getHelloWorld()).toEqual('Hello, world!');
+    expect(await page.getTitle()).toEqual('DUNGEON TOOLS');
   });
 
   afterEach(async () => {

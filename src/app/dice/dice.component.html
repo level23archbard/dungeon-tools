@@ -1,0 +1,19 @@
+<div class="bar">
+  <div class="bar-title">
+    Dice
+  </div>
+  <div class="bar-spacer"></div>
+  <div class="bar-close" (click)="onClickClose()">
+    X
+  </div>
+</div>
+<div class="content">
+  <div class="dice-list">
+    <div *ngIf="activeResult" class="dice-result" [ngClass]="{'critical-success': activeResult.critical === 'SUCCESS', 'critical-failure': activeResult.critical === 'FAILURE'}">
+      {{ activeResult.value }}
+    </div>
+    <div *ngFor="let dice of dice" class="dice" (click)="onClickDice(dice)">
+      {{ dice.name }}
+    </div>
+  </div>
+</div>

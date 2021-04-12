@@ -1,0 +1,80 @@
+@import 'src/styles/colors';
+
+:host {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+}
+
+.bar {
+  display: flex;
+  flex-flow: row;
+  background-color: $bar-background;
+  color: $bar-primary;
+
+  &-title {
+    padding: 1rem;
+    text-transform: uppercase;
+  }
+
+  &-spacer {
+    flex: 1;
+  }
+
+  &-close {
+    width: 3rem;
+    height: 3rem;
+    line-height: 3rem;
+    text-align: center;
+
+    &:active {
+      color: $bar-primary-highlight;
+    }
+  }
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+  background-color: $card;
+}
+
+.dice-list {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  align-content: space-evenly;
+  min-height: 100%;
+}
+
+.dice-result {
+  width: 100%;
+  text-align: center;
+
+  &.critical-success {
+    color: $text-green;
+  }
+
+  &.critical-failure {
+    color: $text-red;
+  }
+}
+
+.dice {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 6rem;
+  height: 6rem;
+  margin: 0.5rem;
+  border: 0.0625rem solid $card-border;
+  text-transform: uppercase;
+
+  &:hover {
+    box-shadow: 0 0 0.125rem 0.125rem $card-border;
+  }
+
+  &:active {
+    background-color: $card-highlight;
+  }
+}

@@ -1,1 +1,23 @@
-Hello, world!
+<header>
+  <div class="bar">
+    <div class="bar-title">
+      Dungeon Tools
+    </div>
+    <div class="bar-spacer"></div>
+    <div class="bar-button" (click)="onClickDice()">
+      Dice
+    </div>
+  </div>
+  <!-- <nav>
+    Links here
+  </nav> -->
+</header>
+<div class="main">
+  Hello, world!
+  <p *ngFor="let i of [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]">
+    Hello
+  </p>
+</div>
+<div @showSideTrigger *ngIf="showSide" class="side">
+  <lxs-dice (closeEvent)="onDiceClose()"></lxs-dice>
+</div>
