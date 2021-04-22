@@ -1,0 +1,9 @@
+@import 'src/styles/colors';
+
+@mixin card() {
+  margin: 1rem;
+  padding: 1rem;
+  background-color: $card;
+  color: $text;
+  box-shadow: 0 0rem 0.5rem 0.25rem $card-shadow;
+}

@@ -1,0 +1,94 @@
+<main>
+  <h1>About Dungeon Tools</h1>
+  <ng-container *ngIf="showFirstTime; then firstTimeIntro; else ordinaryIntro"></ng-container>
+  <ng-template #firstTimeIntro>
+    <p>
+      It looks like it's your first time here. Welcome to Dungeon Tools!
+    </p>
+  </ng-template>
+  <ng-template #ordinaryIntro>
+    <p>
+      Thank you for using Dungeon Tools!
+    </p>
+  </ng-template>
+  <p>
+    Dungeon Tools is a local web application that provides support
+    and enhancements for table top role playing games, for both casual
+    players as well as game masters. As a local web application, all data
+    is stored in your browser, and will persist so long as your browser
+    allows. (For most purposes, this should be as long as you don't uninstall it,
+    though you may encounter data loss in private or incognito tabs.)
+    There is no backend server that Dungeon Tools communicates with, and your
+    data never leaves your computer. This also means that Dungeon Tools does
+    not ever store backups of your data, so it is up to you to make sure you
+    keep things safe.
+  </p>
+  <p>
+    Dungeon Tools is not a supplement to any particular game. We do note
+    endorse stealing any content, especially copyrighted content and
+    intellectual property, that belongs to other game developers. Although this
+    application will contain all the tools necessary to recreate many rules,
+    tables, and features found in other games, please use these for your own
+    purposes and do not share that data outside of Dungeon Tools. If you wish
+    to use Dungeon Tools alongside your favorite game, please consider supporting
+    that game by purchasing content from the game before importing data into your
+    Dungeon Tools storage.
+  </p>
+
+  <h2>Source and Contact</h2>
+  <p>
+    Dungeon Tools is an open-source project, created by the level23archbard. Feel free to
+    <a href="https://github.com/level23archbard/dungeon-tools">browse its source code</a>,
+    <a href="https://github.com/level23archbard/dungeon-tools/issues/new">submit issues</a>,
+    fork it and send pull requests, or whatever else you'd like at its Github repository.
+    Please do mind its
+    <a href="https://github.com/level23archbard/dungeon-tools/blob/main/LICENSE">open source license</a>
+    for legal limitations. If you need to contact the archbard, feel free to send an
+    email at
+    <a href="mailto:level23archbard@gmail.com?subject=Dungeon%20Tools">level23archbard@gmail.com</a>
+    with "<b>Dungeon Tools</b>" in the subject line. (I may not see your message otherwise!)
+  </p>
+
+  <h2>Privacy Policy</h2>
+  <p>
+    Dungeon Tools, and the archbard, believes in a fundamental right to your privacy. This
+    application will never collect, aggregate, or sell your data.
+  </p>
+
+  <h2>Terms of Service</h2>
+  <p>
+    Dungeon Tools (the SOFTWARE) is provided freely by the archbard (the author(s))
+    to be used for the intended purpose of supporting and enhancing table top role
+    playing games. Other similar or personal purposes are also acceptable.
+  </p>
+  <p>
+    By using the SOFTWARE, you agree to not misuse the SOFTWARE. Definitions of misuse
+    include but are not limited to illegal distribution of third party intellectual property,
+    any criminal activity as may be defined by your governing authority, and harrasment against
+    other persons. By participating in misuse of the SOFTWARE, you accept all liability for
+    those actions.
+  </p>
+  <p>
+    The SOFTWARE is provided without warranty of any kind, express or implied,
+    including but not limited to the warranties of merchantability, fitness for a
+    particular purpose and noninfringement. In no event shall the AUTHORS be liable
+    for any claim, damages, or other liability, whether in action of contract, tort
+    or otherwise, arising from, out of or in connection with the SOFTWARE or the
+    use or other dealings in the SOFTWARE.
+  </p>
+  <p>
+    The Terms of Service, as well as Privacy Policy are subject to change. If you would like
+    to receive notice, email
+    <a href="mailto:level23archbard@gmail.com?subject=Dungeon%20Tools%20Request%20Notice%20for%20Change%20of%20Terms">level23archbard@gmail.com</a>
+    with "<b>Dungeon Tools Request Notice for Change of Terms</b>" as the subject line. A
+    notice will be provided within 24 hours.
+  </p>
+  <p>
+    <strong>By using Dungeon Tools, you agree to the above Terms of Service!</strong>
+  </p>
+
+  <h2>Acknowledgments</h2>
+  <p>
+    Open sources, contributors, and other special thanks shall be recognized here.
+  </p>
+</main>

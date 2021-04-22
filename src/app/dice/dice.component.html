@@ -1,4 +1,4 @@
-<div class="bar">
+<header class="bar">
   <div class="bar-title">
     Dice
   </div>
@@ -6,7 +6,7 @@
   <div class="bar-close" (click)="onClickClose()">
     X
   </div>
-</div>
+</header>
 <div class="content">
   <div class="dice-list">
     <div *ngIf="activeResult" class="dice-result" [ngClass]="{'critical-success': activeResult.critical === 'SUCCESS', 'critical-failure': activeResult.critical === 'FAILURE'}">

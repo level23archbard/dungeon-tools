@@ -1,0 +1,25 @@
+@import 'src/styles/colors';
+@import 'src/styles/buttons';
+@import 'src/styles/card';
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.card {
+  @include card();
+  width: 24rem;
+  height: 24rem;
+
+  & p {
+    text-align: center;
+  }
+}
+
+.accept {
+  @include button-submit();
+}

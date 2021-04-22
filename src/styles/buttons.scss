@@ -1,0 +1,16 @@
+@import 'src/styles/colors';
+
+@mixin button-submit {
+  margin: 1rem;
+  padding: 1rem;
+  background-color: $button-submit-background;
+  color: $button-submit-primary;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:active {
+    background-color: $button-submit-selected;
+  }
+}

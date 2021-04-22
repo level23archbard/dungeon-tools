@@ -1,23 +1,27 @@
-<header>
-  <div class="bar">
-    <div class="bar-title">
-      Dungeon Tools
+<div class="page">
+  <header>
+    <div class="bar">
+      <div class="bar-title">
+        Dungeon Tools
+      </div>
+      <div class="bar-spacer"></div>
+      <div class="bar-button" (click)="onClickDice()">
+        Dice
+      </div>
     </div>
-    <div class="bar-spacer"></div>
-    <div class="bar-button" (click)="onClickDice()">
-      Dice
-    </div>
+    <nav class="nav-bar">
+      <ul>
+        <li><a routerLink="home">Home</a></li>
+      </ul>
+    </nav>
+  </header>
+  <div class="main">
+    <router-outlet></router-outlet>
   </div>
-  <!-- <nav>
-    Links here
-  </nav> -->
-</header>
-<div class="main">
-  Hello, world!
-  <p *ngFor="let i of [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]">
-    Hello
-  </p>
-</div>
-<div @showSideTrigger *ngIf="showSide" class="side">
-  <lxs-dice (closeEvent)="onDiceClose()"></lxs-dice>
+  <div @showSideTrigger *ngIf="showSide" class="side">
+    <lxs-dice (closeEvent)="onDiceClose()"></lxs-dice>
+  </div>
+  <div @showWelcomeTrigger *ngIf="showWelcome" class="welcome">
+    <lxs-welcome></lxs-welcome>
+  </div>
 </div>

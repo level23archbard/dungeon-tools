@@ -2,7 +2,10 @@ import { browser, by, element, ElementFinder } from 'protractor';
 
 export class AppPage {
   async navigateTo(): Promise<unknown> {
-    return browser.get(browser.baseUrl);
+    await browser.get(browser.baseUrl);
+    await browser.sleep(500);
+    await element(by.css('.accept')).click();
+    return browser.sleep(250);
   }
 
   async getTitle(): Promise<string> {

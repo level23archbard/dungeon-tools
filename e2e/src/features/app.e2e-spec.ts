@@ -19,5 +19,7 @@ describe('Main App', () => {
     expect(logs).not.toContain(jasmine.objectContaining({
       level: logging.Level.SEVERE,
     } as logging.Entry));
+    // Clear local storage
+    browser.executeScript('window.localStorage.clear();');
   });
 });
