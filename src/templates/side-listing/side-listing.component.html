@@ -1,0 +1,26 @@
+<div class="side">
+  <header class="side-header">
+    <div class="side-title">
+      {{ label }}
+    </div>
+    <div class="side-button" (click)="onClickAdd()">
+      Add
+    </div>
+  </header>
+  <ng-container *ngIf="entries">
+    <div *ngFor="let entry of entries" class="side-entry" [ngClass]="{ 'side-entry-active': entry.id === activeEntryId }" (click)="onClickEntry(entry)">
+      <div class="side-entry-content">
+        <div class="side-entry-label">
+          {{ entry.name }}
+        </div>
+        <div class="side-entry-selector">
+          &gt;
+        </div>
+      </div>
+    </div>
+    <div *ngIf="entries.length === 0" class="side-no-content">
+      No {{ label }}
+    </div>
+  </ng-container>
+</div>
+<ng-content></ng-content>

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 import { WelcomeService } from '../welcome/welcome.service';
 
@@ -7,15 +8,20 @@ import { WelcomeService } from '../welcome/welcome.service';
   templateUrl: './about.component.html',
   styleUrls: ['./about.component.scss'],
 })
-export class AboutComponent implements OnInit {
+export class AboutComponent implements OnInit, OnDestroy {
 
+  private subscriptions = new Subscription();
   showFirstTime = false;
 
   constructor(private welcome: WelcomeService) {}
 
   ngOnInit(): void {
-    this.welcome.checked.subscribe((isChecked) => {
+    this.subscriptions.add(this.welcome.checked.subscribe((isChecked) => {
       this.showFirstTime = !isChecked;
-    });
+    }));
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

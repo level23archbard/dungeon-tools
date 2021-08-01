@@ -6,9 +6,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StorageModule } from '@level23archbard/storage-service';
 
+import { SideListingModule } from 'src/templates/side-listing/side-listing.module';
 import { AboutComponent } from './about/about.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { CharactersComponent } from './characters/characters.component';
 import { DiceComponent } from './dice/dice.component';
 import { E404Component } from './e404/e404.component';
 import { HomeComponent } from './home/home.component';
@@ -20,6 +22,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
   declarations: [
     AboutComponent,
     AppComponent,
+    CharactersComponent,
     DiceComponent,
     E404Component,
     HomeComponent,
@@ -35,6 +38,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
     TextFieldModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    SideListingModule
   ],
   bootstrap: [AppComponent],
 })
