@@ -1,0 +1,36 @@
+@import 'src/styles/colors';
+
+@mixin side-menu() {
+  border-right: 0.0625rem solid $side-menu-border;
+  padding: 1rem;
+  background-color: $side-menu-background;
+  color: $text;
+
+  header {
+    margin: -1rem -1rem 0;
+    border-bottom: 0.0625rem solid $side-menu-border;
+    height: 3rem;
+    background-color: $side-menu-header;
+  }
+}
+
+@mixin side-menu-button($width: null, $height: 3rem) {
+  @if $width {
+    width: $width;
+  }
+  @if $height {
+    height: $height;
+    line-height: $height;
+  }
+  text-align: center;
+  user-select: none;
+
+  &:hover {
+    color: $text-light;
+    cursor: pointer;
+  }
+
+  &:active {
+    background-color: $side-menu-header-highlight;
+  }
+}

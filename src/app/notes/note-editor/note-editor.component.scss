@@ -1,0 +1,11 @@
+@import 'src/styles/colors';
+
+:host {
+  display: block;
+}
+
+.note-section {
+  border: 0.125rem solid $card-border;
+  padding: 0.5rem;
+  width: calc(100% - 2.25rem);
+}

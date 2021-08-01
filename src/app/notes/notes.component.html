@@ -1,0 +1,53 @@
+<div class="side">
+  <header class="side-header">
+    <div class="side-title">
+      Notes
+    </div>
+    <div class="side-button" (click)="onClickAddNoteEntry()">
+      Add
+    </div>
+  </header>
+  <ng-container *ngIf="noteEntries">
+    <div *ngFor="let noteEntry of noteEntries" class="side-entry" [ngClass]="{ 'side-entry-active': noteEntry.id === activeNoteEntryId }" (click)="onClickNoteEntry(noteEntry)">
+      <div class="side-entry-content">
+        <div class="side-entry-label">
+          {{ noteEntry.name }}
+        </div>
+        <div class="side-entry-selector">
+          &gt;
+        </div>
+      </div>
+    </div>
+    <div *ngIf="noteEntries.length === 0" class="side-no-content">
+      No notes
+    </div>
+  </ng-container>
+</div>
+<main class="notes">
+  <div class="header">
+    <ng-container *ngIf="isRenaming; else notRenaming">
+      <label>
+        Rename:
+        <input type="text" [formControl]="renamingControl" />
+      </label>
+      <div class="header-button" (click)="onClickRenameCancel()">
+        Cancel
+      </div>
+      <div class="header-button" (click)="onClickRenameSave()">
+        Save
+      </div>
+    </ng-container>
+    <ng-template #notRenaming>
+      <h1>{{ activeNoteEntryName }}</h1>
+      <div class="header-button" (click)="onClickRename()">
+        Rename
+      </div>
+      <div class="header-button" (click)="onClickDelete()">
+        Delete
+      </div>
+    </ng-template>
+  </div>
+  <div *ngIf="activeNoteEntryId" class="note-body">
+    <lxs-note-editor [id]="activeNoteEntryId"></lxs-note-editor>
+  </div>
+</main>

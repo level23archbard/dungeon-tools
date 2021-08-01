@@ -1,0 +1,8 @@
+<ng-container *ngIf="isEditing; then noteEditor; else noteViewer">
+</ng-container>
+<ng-template #noteEditor>
+  <textarea cdkTextareaAutosize cdkAutosizeMinRows="8" cdkAutosizeMaxRows="100" #noteEditor class="note-section" [formControl]="noteControl"></textarea>
+</ng-template>
+<ng-template #noteViewer>
+  NoteViewer
+</ng-template>

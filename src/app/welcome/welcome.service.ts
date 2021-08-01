@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
+import { StorageKey, StorageService } from '@level23archbard/storage-service';
 import { BehaviorSubject, Observable } from 'rxjs';
-
-import { StorageKey, StorageService } from '../storage.service';
 
 @Injectable({
   providedIn: 'root',

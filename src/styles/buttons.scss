@@ -5,6 +5,7 @@
   padding: 1rem;
   background-color: $button-submit-background;
   color: $button-submit-primary;
+  user-select: none;
 
   &:hover {
     cursor: pointer;

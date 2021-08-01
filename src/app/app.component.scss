@@ -61,7 +61,13 @@
 
 .main {
   flex: 1;
+  display: flex;
+  flex-flow: column;
   background-color: $background;
+
+  & ::ng-deep > *:not(router-outlet) {
+    flex: 1;
+  }
 }
 
 .side {
@@ -69,7 +75,7 @@
   right: 0;
   width: 24rem;
   height: 100%;
-  box-shadow: 0 0rem 0.5rem 0.5rem $card-shadow;
+  box-shadow: 0 0rem 0.5rem 0.5rem $overlay-shadow;
 }
 
 .welcome {
