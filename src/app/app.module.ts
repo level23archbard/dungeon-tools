@@ -6,7 +6,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StorageModule } from '@level23archbard/storage-service';
 
+import { IconsModule } from 'src/icons/icons.module';
 import { SideListingModule } from 'src/templates/side-listing/side-listing.module';
+import { SplitPanelsModule } from 'src/templates/split-panels/split-panels.module';
 import { AboutComponent } from './about/about.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -38,7 +40,9 @@ import { WelcomeComponent } from './welcome/welcome.component';
     TextFieldModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    SideListingModule
+    IconsModule,
+    SideListingModule,
+    SplitPanelsModule,
   ],
   bootstrap: [AppComponent],
 })

@@ -1,36 +1,41 @@
-@import 'src/styles/side-menu';
-
-:host {
-  display: flex;
-  flex-flow: row;
-  align-items: flex-start;
-}
+@import 'src/styles/buttons';
 
 .side {
-  @include side-menu();
-  width: 16rem;
-  align-self: stretch;
-
   &-header {
     display: flex;
     flex-flow: row;
     justify-content: center;
     align-items: center;
+    border-bottom: 0.0625rem solid $side-menu-border;
+    height: 3rem;
+    background-color: $side-menu-header;
+    color: $text;
   }
 
   &-title {
     flex: 1;
     text-align: center;
+    color: $text;
   }
 
   &-button {
-    @include side-menu-button(3rem);
+    @include button-icon(3rem, 3rem);
+
+    > img {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+
+    &:active {
+      background-color: $side-menu-header-highlight;
+    }
   }
 
   &-entry {
-    margin: 0 -1rem;
+    // margin: 0 -1rem;
     padding: 0 1rem;
     height: 3rem;
+    color: $text;
 
     &:hover {
       background-color: $background;
@@ -43,6 +48,10 @@
 
       &:hover {
         background-color: $side-menu-selected;
+        color: $bar-primary;
+      }
+
+      .side-entry-selector > mat-icon {
         color: $bar-primary;
       }
     }
@@ -60,12 +69,24 @@
       flex: 1;
     }
 
-    &-selector {}
+    &-selector {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      > mat-icon {
+        width: 1rem;
+        height: 1rem;
+        line-height: 1rem;
+        color: $text;
+      }
+    }
   }
 
   &-no-content {
     height: 3rem;
     line-height: 3rem;
     text-align: center;
+    color: $text;
   }
 }

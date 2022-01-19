@@ -1,0 +1,9 @@
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+ <g id="Layer_1">
+  <line stroke-linecap="square" stroke-linejoin="undefined" id="svg_1" y2="21.75" x2="5.875" y1="5.2625" x1="2.2" stroke-width="2" stroke="currentColor" fill="none"/>
+  <line stroke-linecap="square" stroke-linejoin="undefined" id="svg_2" y2="21.75" x2="18.125" y1="5.2625" x1="21.8" stroke-width="2" stroke="currentColor" fill="none"/>
+  <line stroke-linecap="square" stroke-linejoin="undefined" id="svg_3" y2="22" x2="17.875" y1="22" x1="6.125" stroke-width="2" stroke="currentColor" fill="none"/>
+  <line stroke-linecap="square" stroke-linejoin="undefined" id="svg_4" y2="3.5" x2="22" y1="3.5" x1="2" stroke-width="2" stroke="currentColor" fill="none"/>
+  <line stroke-linecap="square" stroke-linejoin="undefined" id="svg_5" y2="2" x2="14" y1="2" x1="10" stroke-width="2" stroke="currentColor" fill="none"/>
+ </g>
+</svg>

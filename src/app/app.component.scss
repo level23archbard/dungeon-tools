@@ -70,6 +70,15 @@
   }
 }
 
+.footer {
+  padding: 0.5rem;
+  color: $text-light;
+
+  a {
+    color: $text-light;
+  }
+}
+
 .side {
   position: fixed;
   right: 0;

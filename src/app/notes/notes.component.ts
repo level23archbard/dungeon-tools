@@ -61,9 +61,9 @@ export class NotesComponent implements OnInit, OnDestroy {
     this.notes.addNoteEntry();
   }
 
-  onClickNoteEntry(entry: NoteEntry): void {
-    if (entry.id !== this.activeNoteEntryId) {
-      this.router.navigate(['notes', entry.id]);
+  onClickNoteEntry(entryId: string): void {
+    if (entryId !== this.activeNoteEntryId) {
+      this.router.navigate(['notes', entryId]);
     }
   }
 

@@ -15,3 +15,29 @@
     background-color: $button-submit-selected;
   }
 }
+
+@mixin button-icon($width, $height) {
+  // Until we find a better way of recoloring static icons, create filters here: https://codepen.io/sosuke/pen/Pjoqqp
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: $width;
+  height: $height;
+  line-height: $height;
+  user-select: none;
+
+  > mat-icon {
+    width: $width/2;
+    height: $height/2;
+    line-height: $height/2;
+    color: $text;
+  }
+
+  &:hover {
+    cursor: pointer;
+
+    > mat-icon {
+      color: $text-light;
+    }
+  }
+}

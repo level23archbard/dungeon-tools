@@ -20,6 +20,13 @@
   <div class="main">
     <router-outlet></router-outlet>
   </div>
+  <footer>
+    <div class="footer">
+      Learn more about Dungeon Tools <a routerLink="about">here</a>
+      |
+      © 2021 level23archbard
+    </div>
+  </footer>
   <div @showSideTrigger *ngIf="showSide" class="side">
     <lxs-dice (closeEvent)="onDiceClose()"></lxs-dice>
   </div>
