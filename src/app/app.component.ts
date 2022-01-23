@@ -5,11 +5,15 @@ import {
   transition,
 } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { NavigationEnd, Event, Router } from '@angular/router';
 import { combineLatest } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { filter, switchMap } from 'rxjs/operators';
 
+import { WelcomeComponent } from './welcome/welcome.component';
 import { WelcomeService } from './welcome/welcome.service';
+
+const WELCOME = 'welcome';
 
 @Component({
   selector: 'lxs-dungeon-tools',
@@ -25,15 +29,6 @@ import { WelcomeService } from './welcome/welcome.service';
         animate('200ms ease-in', style({ transform: 'translateX(100%)' })),
       ]),
     ]),
-    trigger('showWelcomeTrigger', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate('400ms ease-in', style({ opacity: 1 })),
-      ]),
-      transition(':leave', [
-        animate('200ms ease-in', style({ opacity: 0 })),
-      ]),
-    ]),
   ],
 })
 export class AppComponent implements OnInit {
@@ -41,7 +36,7 @@ export class AppComponent implements OnInit {
   showSide: 'DICE' | null = null;
   showWelcome = false;
 
-  constructor(private router: Router, private welcome: WelcomeService) {}
+  constructor(private router: Router, private dialog: MatDialog, private welcome: WelcomeService) {}
 
   ngOnInit(): void {
     combineLatest([
@@ -51,7 +46,13 @@ export class AppComponent implements OnInit {
         ),
       this.welcome.checked,
     ]).subscribe(([navigation, isChecked]) => {
-      this.showWelcome = !isChecked && navigation.urlAfterRedirects !== '/about';
+      if (!isChecked && navigation.urlAfterRedirects !== '/about') {
+        this.dialog.open(WelcomeComponent, {
+          id: WELCOME,
+        });
+      } else {
+        this.dialog.getDialogById(WELCOME)?.close();
+      }
     });
   }
 

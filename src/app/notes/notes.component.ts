@@ -1,8 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, Subscription } from 'rxjs';
 
+import { NoteDeletePopupComponent } from './note-delete-popup/note-delete-popup.component';
 import { NoteEntry, NotesService } from './notes.service';
 
 @Component({
@@ -20,7 +22,7 @@ export class NotesComponent implements OnInit, OnDestroy {
   renamingControl = new FormControl('');
   isDeleting = false;
 
-  constructor(private route: ActivatedRoute, private router: Router, private notes: NotesService) {}
+  constructor(private route: ActivatedRoute, private router: Router, private dialog: MatDialog, private notes: NotesService) {}
 
   ngOnInit(): void {
     let firstTime = true;
@@ -85,7 +87,13 @@ export class NotesComponent implements OnInit, OnDestroy {
   }
 
   onClickDelete(): void {
-    this.isDeleting = true;
-    this.notes.deleteNoteEntry(this.activeNoteEntryId || '');
+    this.subscriptions.add(
+      this.dialog.open(NoteDeletePopupComponent).afterClosed().subscribe((confirm) => {
+        if (confirm) {
+          this.isDeleting = true;
+          this.notes.deleteNoteEntry(this.activeNoteEntryId || '');
+        }
+      })
+    );
   }
 }

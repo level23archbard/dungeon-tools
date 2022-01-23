@@ -2,6 +2,7 @@ import { TextFieldModule } from '@angular/cdk/text-field';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import {MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS} from '@angular/material/dialog';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StorageModule } from '@level23archbard/storage-service';
@@ -19,6 +20,7 @@ import { HomeComponent } from './home/home.component';
 import { NoteEditorComponent } from './notes/note-editor/note-editor.component';
 import { NotesComponent } from './notes/notes.component';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { NoteDeletePopupComponent } from './notes/note-delete-popup/note-delete-popup.component';
 
 @NgModule({
   declarations: [
@@ -31,11 +33,13 @@ import { WelcomeComponent } from './welcome/welcome.component';
     NoteEditorComponent,
     NotesComponent,
     WelcomeComponent,
+    NoteDeletePopupComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     CommonModule,
+    MatDialogModule,
     StorageModule,
     TextFieldModule,
     ReactiveFormsModule,
@@ -43,6 +47,14 @@ import { WelcomeComponent } from './welcome/welcome.component';
     IconsModule,
     SideListingModule,
     SplitPanelsModule,
+  ],
+  providers: [
+    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {
+      closeOnNavigation: true,
+      disableClose: true,
+      hasBackdrop: true,
+      panelClass: 'lxs-dialog-card',
+    }}
   ],
   bootstrap: [AppComponent],
 })

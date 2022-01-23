@@ -10,7 +10,7 @@ $background: #ddd;
 $card: #f7f7f7;
 $card-border: #777;
 $card-highlight: #d7d7d7;
-$card-shadow: #444;
+$card-shadow: #44444460;
 
 $text: #333;
 $text-light: #555;
@@ -31,9 +31,10 @@ $side-menu-header-highlight: $side-menu-background;
 $button-submit-background: $accent;
 $button-submit-selected: $card-highlight;
 $button-submit-primary: $bar-primary;
+$button-submit-primary-highlight: $bar-primary-highlight;
 
 $overlay: rgba(0,0,0,0.3);
-$overlay-shadow: #111;
+$overlay-shadow: #111111160;
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".

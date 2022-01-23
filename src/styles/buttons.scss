@@ -1,14 +1,29 @@
 @import 'src/styles/colors';
 
-@mixin button-submit {
-  margin: 1rem;
+@mixin button-text {
   padding: 1rem;
-  background-color: $button-submit-background;
-  color: $button-submit-primary;
   user-select: none;
+  color: $text;
 
   &:hover {
     cursor: pointer;
+    color: $text-light;
+  }
+}
+
+@mixin button-text-destructive {
+  @include button-text();
+  color: $text-red;
+}
+
+@mixin button-submit {
+  @include button-text();
+  margin: 1rem;
+  background-color: $button-submit-background;
+  color: $button-submit-primary;
+
+  &:hover {
+    color: $button-submit-primary-highlight;
   }
 
   &:active {
