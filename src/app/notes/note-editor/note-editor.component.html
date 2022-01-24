@@ -1,8 +1,17 @@
-<ng-container *ngIf="isEditing; then noteEditor; else noteViewer">
-</ng-container>
+<div class="note-container">
+  <ng-container *ngIf="isEditing; then noteEditor; else noteViewer">
+  </ng-container>
+  <div class="edit-button" (click)="onClickEditing()">
+    <mat-icon [svgIcon]="isEditing ? 'check' : 'quill'"></mat-icon>
+  </div>
+</div>
 <ng-template #noteEditor>
-  <textarea cdkTextareaAutosize cdkAutosizeMinRows="8" cdkAutosizeMaxRows="100" #noteEditor class="note-section" [formControl]="noteControl"></textarea>
+  <textarea cdkTextareaAutosize cdkAutosizeMinRows="8" cdkAutosizeMaxRows="100" #noteEditor class="note-section is-editing" [formControl]="noteControl"></textarea>
 </ng-template>
 <ng-template #noteViewer>
-  NoteViewer
+  <div class="note-section">
+    <p *ngFor="let line of noteControl.value.split('\n')">
+      {{ line }}
+    </p>
+  </div>
 </ng-template>

@@ -35,9 +35,6 @@ export class NoteEditorComponent implements OnChanges, OnInit, OnDestroy {
         switchMap((id) => this.notes.getCurrentNoteValue(id as string)),
       ).subscribe((value) => {
         this.noteControl.setValue(value);
-        setTimeout(() => {
-          this.noteEditor?.resizeToFitContent(true);
-        });
       }),
     );
 
