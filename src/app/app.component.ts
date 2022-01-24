@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NavigationEnd, Event, Router } from '@angular/router';
 import { combineLatest } from 'rxjs';
-import { filter, switchMap } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
 
 import { WelcomeComponent } from './welcome/welcome.component';
 import { WelcomeService } from './welcome/welcome.service';
@@ -46,14 +46,18 @@ export class AppComponent implements OnInit {
         ),
       this.welcome.checked,
     ]).subscribe(([navigation, isChecked]) => {
-      if (!isChecked && navigation.urlAfterRedirects !== '/about') {
-        this.dialog.open(WelcomeComponent, {
-          id: WELCOME,
-        });
-      } else {
-        this.dialog.getDialogById(WELCOME)?.close();
-      }
+      this.updateWelcomePopup(navigation, isChecked);
     });
+  }
+
+  updateWelcomePopup(navigation: NavigationEnd, isChecked: boolean): void {
+    if (!isChecked && navigation.urlAfterRedirects !== '/about') {
+      this.dialog.open(WelcomeComponent, {
+        id: WELCOME,
+      });
+    } else {
+      this.dialog.getDialogById(WELCOME)?.close();
+    }
   }
 
   onClickDice(): void {

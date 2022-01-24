@@ -60,13 +60,21 @@ export class NotesComponent implements OnInit, OnDestroy {
   }
 
   onClickAddNoteEntry(): void {
-    this.notes.addNoteEntry();
+    this.subscriptions.add(
+      this.notes.addNoteEntry().subscribe((entryId) => {
+        this.router.navigate(['notes', entryId]);
+      })
+    );
   }
 
   onClickNoteEntry(entryId: string): void {
     if (entryId !== this.activeNoteEntryId) {
       this.router.navigate(['notes', entryId]);
     }
+  }
+
+  onClickMoveNoteEntry(movement: { from: number, to: number }): void {
+    this.notes.moveNoteEntry(movement.from, movement.to);
   }
 
   onClickRename(): void {

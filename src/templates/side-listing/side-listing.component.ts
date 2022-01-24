@@ -18,6 +18,7 @@ export class SideListingComponent {
 
   @Output() addEvent = new EventEmitter<void>();
   @Output() selectEvent = new EventEmitter<string>();
+  @Output() moveEvent = new EventEmitter<{ from: number, to: number }>();
 
   onClickAdd(): void {
     this.addEvent.emit();
@@ -25,5 +26,21 @@ export class SideListingComponent {
 
   onClickEntry(entry: SideListingEntry): void {
     this.selectEvent.emit(entry.id);
+  }
+
+  onClickMoveUp(event: Event, entry: SideListingEntry, index: number): void {
+    event.stopPropagation();
+    if (index === 0) { return };
+    this.moveEvent.emit({ from: index, to: index - 1 });
+  }
+
+  onClickMoveDown(event: Event, entry: SideListingEntry, index: number): void {
+    event.stopPropagation();
+    if (index === this.entries?.length ?? 0 - 1) { return };
+    this.moveEvent.emit({ from: index, to: index + 1 });
+  }
+
+  trackById(index: number, entry: SideListingEntry): string {
+    return entry.id;
   }
 }

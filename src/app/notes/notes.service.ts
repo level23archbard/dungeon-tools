@@ -45,7 +45,7 @@ export class NotesService {
   addNoteEntry(): Observable<string> {
     return this.operateOnNoteEntries((noteEntries) => {
       const id = this.id.generate();
-      noteEntries.push({
+      noteEntries.unshift({
         id,
         name: 'New Note',
         link: '',
@@ -62,6 +62,15 @@ export class NotesService {
       } else {
         throw new Error(`Editing note entry with id ${id} not found`);
       }
+    });
+  }
+
+  moveNoteEntry(from: number, to: number): Observable<void> {
+    return this.operateOnNoteEntries((noteEntries) => {
+      if (from < 0 || to < 0 || from >= noteEntries.length || to >= noteEntries.length) {
+        throw new Error(`Moving note entries from ${from} to ${to}, index out of bounds of array length ${noteEntries.length}`);
+      }
+      noteEntries.splice(to, 0, ...noteEntries.splice(from, 1));
     });
   }
 

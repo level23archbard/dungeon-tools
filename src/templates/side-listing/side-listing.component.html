@@ -7,8 +7,16 @@
   </div>
 </header>
 <ng-container *ngIf="entries">
-  <div *ngFor="let entry of entries" class="side-entry" [ngClass]="{ 'side-entry-active': entry.id === selectedEntryId }" (click)="onClickEntry(entry)">
+  <div *ngFor="let entry of entries; index as i; trackBy: trackById" class="side-entry" [ngClass]="{ 'side-entry-active': entry.id === selectedEntryId }" (click)="onClickEntry(entry)">
     <div class="side-entry-content">
+      <div class="side-entry-mover-buttons">
+        <div class="side-entry-mover-button" (click)="onClickMoveUp($event, entry, i)">
+          <mat-icon svgIcon="collapse"></mat-icon>
+        </div>
+        <div class="side-entry-mover-button" (click)="onClickMoveDown($event, entry, i)">
+          <mat-icon svgIcon="expand"></mat-icon>
+        </div>
+      </div>
       <div class="side-entry-label">
         {{ entry.name }}
       </div>

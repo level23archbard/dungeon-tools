@@ -51,6 +51,14 @@
         color: $bar-primary;
       }
 
+      .side-entry-mover-button > mat-icon {
+        color: $bar-primary;
+      }
+
+      .side-entry-mover-button:hover > mat-icon {
+        color: $bar-primary-highlight;
+      }
+
       .side-entry-selector > mat-icon {
         color: $bar-primary;
       }
@@ -63,6 +71,14 @@
       align-items: center;
       border-bottom: 0.0625rem solid $side-menu-border;
       height: calc(100% - 0.0625rem);
+    }
+
+    &-mover-buttons {
+      padding-right: 0.5rem;
+    }
+
+    &-mover-button {
+      @include button-icon(1.5rem, 1.5rem);
     }
 
     &-label {
