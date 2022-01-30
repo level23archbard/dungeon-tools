@@ -1,0 +1,24 @@
+@import 'src/styles/buttons';
+
+:host {
+  display: block;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.section {
+  padding: 0.5rem;
+  width: calc(100% - 2.25rem);
+}
+
+.is-editing {
+  border: 0.125rem solid $card-border;
+}
+
+.edit-button {
+  @include button-icon(3rem, 3rem);
+}

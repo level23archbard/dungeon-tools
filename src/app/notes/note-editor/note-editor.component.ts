@@ -1,9 +1,8 @@
-import { CdkTextareaAutosize } from '@angular/cdk/text-field';
-import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
-import { debounceTime, filter, map, switchMap } from 'rxjs/operators';
+import { filter, switchMap } from 'rxjs/operators';
 
+import { LinkerService } from 'src/app/linker.service';
 import { NotesService } from '../notes.service';
 
 @Component({
@@ -14,13 +13,11 @@ import { NotesService } from '../notes.service';
 export class NoteEditorComponent implements OnChanges, OnInit, OnDestroy {
 
   @Input() id?: string;
-  @ViewChild('noteEditor') noteEditor?: CdkTextareaAutosize;
   private noteId = new BehaviorSubject<string | null>(null);
-  noteControl = new FormControl('');
-  isEditing = true;
   private subscriptions = new Subscription();
+  noteValue?: string;
 
-  constructor(private notes: NotesService) {}
+  constructor(public linker: LinkerService, private notes: NotesService) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.id) {
@@ -34,25 +31,19 @@ export class NoteEditorComponent implements OnChanges, OnInit, OnDestroy {
         filter((value) => !!value),
         switchMap((id) => this.notes.getCurrentNoteValue(id as string)),
       ).subscribe((value) => {
-        this.noteControl.setValue(value);
+        this.noteValue = value;
       }),
     );
-
-    this.subscriptions.add(this.noteControl.valueChanges.pipe(
-      map((value) => [this.noteId.value, value || ''] as [string | null, string]),
-      debounceTime(200),
-    ).subscribe(([id, text]) => {
-      if (id) {
-        this.notes.updateNoteValue(id, text);
-      }
-    }));
   }
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }
 
-  onClickEditing(): void {
-    this.isEditing = !this.isEditing;
+  onNoteChanged(newValue: string) {
+    const id = this.noteId.value;
+    if (id) {
+      this.notes.updateNoteValue(id, newValue);
+    }
   }
 }

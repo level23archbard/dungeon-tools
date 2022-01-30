@@ -1,13 +1,13 @@
-import { TextFieldModule } from '@angular/cdk/text-field';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import {MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS} from '@angular/material/dialog';
+import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StorageModule } from '@level23archbard/storage-service';
 
 import { IconsModule } from 'src/icons/icons.module';
+import { InscriptionModule } from 'src/templates/inscription/inscription.module';
 import { SideListingModule } from 'src/templates/side-listing/side-listing.module';
 import { SplitPanelsModule } from 'src/templates/split-panels/split-panels.module';
 import { AboutComponent } from './about/about.component';
@@ -41,20 +41,22 @@ import { NoteDeletePopupComponent } from './notes/note-delete-popup/note-delete-
     CommonModule,
     MatDialogModule,
     StorageModule,
-    TextFieldModule,
     ReactiveFormsModule,
     AppRoutingModule,
     IconsModule,
+    InscriptionModule,
     SideListingModule,
     SplitPanelsModule,
   ],
   providers: [
-    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {
-      closeOnNavigation: true,
-      disableClose: true,
-      hasBackdrop: true,
-      panelClass: 'lxs-dialog-card',
-    }}
+    {
+      provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {
+        closeOnNavigation: true,
+        disableClose: true,
+        hasBackdrop: true,
+        panelClass: 'lxs-dialog-card',
+      }
+    }
   ],
   bootstrap: [AppComponent],
 })

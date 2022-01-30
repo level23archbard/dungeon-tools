@@ -1,0 +1,13 @@
+@import 'src/styles/colors';
+
+:host {
+  display: block;
+}
+
+p {
+  margin: 0 0 0.5rem;
+}
+
+.link-invalid {
+  color: $text-red;
+}

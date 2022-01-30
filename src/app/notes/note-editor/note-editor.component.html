@@ -1,17 +1,5 @@
-<div class="note-container">
-  <ng-container *ngIf="isEditing; then noteEditor; else noteViewer">
-  </ng-container>
-  <div class="edit-button" (click)="onClickEditing()">
-    <mat-icon [svgIcon]="isEditing ? 'check' : 'quill'"></mat-icon>
-  </div>
-</div>
-<ng-template #noteEditor>
-  <textarea cdkTextareaAutosize cdkAutosizeMinRows="8" cdkAutosizeMaxRows="100" #noteEditor class="note-section is-editing" [formControl]="noteControl"></textarea>
-</ng-template>
-<ng-template #noteViewer>
-  <div class="note-section">
-    <p *ngFor="let line of noteControl.value.split('\n')">
-      {{ line }}
-    </p>
-  </div>
-</ng-template>
+<lxs-inscription-editor
+  [value]="noteValue"
+  (valueChanged)="onNoteChanged($event)"
+  [linkEvaluator]="linker"
+></lxs-inscription-editor>

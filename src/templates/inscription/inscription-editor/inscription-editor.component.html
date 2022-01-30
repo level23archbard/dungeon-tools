@@ -1,0 +1,13 @@
+<div class="container">
+  <ng-container *ngIf="isEditing; then editor; else viewer">
+  </ng-container>
+  <div class="edit-button" (click)="onClickEditing()">
+    <mat-icon [svgIcon]="isEditing ? 'check' : 'quill'"></mat-icon>
+  </div>
+</div>
+<ng-template #editor>
+  <textarea cdkTextareaAutosize cdkAutosizeMinRows="8" cdkAutosizeMaxRows="100" class="section is-editing" [formControl]="valueControl"></textarea>
+</ng-template>
+<ng-template #viewer>
+  <lxs-inscription-viewer class="section" [value]="value" [linkEvaluator]="linkEvaluator"></lxs-inscription-viewer>
+</ng-template>
