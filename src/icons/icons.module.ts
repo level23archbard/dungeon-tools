@@ -31,6 +31,7 @@ export class IconsModule {
     this.addIcon('expand');
     this.addIcon('forward');
     this.addIcon('quill');
+    this.addIcon('question');
   }
 
   private addIcon(iconName: string) {

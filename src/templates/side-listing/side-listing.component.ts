@@ -17,11 +17,16 @@ export class SideListingComponent {
   @Input() selectedEntryId?: string;
 
   @Output() addEvent = new EventEmitter<void>();
+  @Output() helpEvent = new EventEmitter<void>();
   @Output() selectEvent = new EventEmitter<string>();
   @Output() moveEvent = new EventEmitter<{ from: number, to: number }>();
 
   onClickAdd(): void {
     this.addEvent.emit();
+  }
+
+  onClickHelp(): void {
+    this.helpEvent.emit();
   }
 
   onClickEntry(entry: SideListingEntry): void {
