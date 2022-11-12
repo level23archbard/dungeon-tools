@@ -1,8 +1,9 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { forkJoin, Observable, of, Subject, Subscription } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { Observable, of, Subject, Subscription } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 
 import { NotesService } from '../notes/notes.service';
+import { ExportedData } from './export.model';
 
 @Injectable({
   providedIn: 'root',
@@ -32,32 +33,14 @@ export class ExportService implements OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
-  private generateExport(): Observable<string> {
-    return of({}).pipe(
-      switchMap((val) => this.generateExportedNotesInto(val)),
-      map((val) => JSON.stringify(val)),
-    );
+  private createEmptyExportedData(): ExportedData {
+    return {} as ExportedData;
   }
 
-  private generateExportedNotesInto(val: any): Observable<any> {
-    return this.notes.noteEntriesList.pipe(
-      tap((entries) => {
-        val.noteEntries = entries;
-      }),
-      switchMap((entries) => {
-        if (entries.length) {
-          return forkJoin(entries.map((entry) => this.notes.getCurrentNoteValue(entry.id).pipe(map((note) => [entry.id, note]))));
-        } else {
-          return of([]);
-        }
-      }),
-      map((notes) => {
-        val.notes = {};
-        notes.forEach(([id, note]) => {
-          val.notes[id] = note;
-        });
-        return val;
-      }),
+  private generateExport(): Observable<string> {
+    return of(this.createEmptyExportedData()).pipe(
+      switchMap((val) => this.notes.exportInto(val)),
+      map((val) => JSON.stringify(val)),
     );
   }
 

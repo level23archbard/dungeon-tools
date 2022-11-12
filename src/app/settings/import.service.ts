@@ -1,6 +1,9 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { EMPTY, from, Observable, of, Subject, Subscription, throwError } from 'rxjs';
-import { catchError, switchMap } from 'rxjs/operators';
+import { EMPTY, forkJoin, from, Observable, of, Subject, Subscription, throwError } from 'rxjs';
+import { catchError, map, switchMap } from 'rxjs/operators';
+
+import { NotesService } from '../notes/notes.service';
+import { ExportedData } from './export.model';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +15,7 @@ export class ImportService implements OnDestroy {
   private fileEvent = new Subject<void>();
   private element?: HTMLInputElement;
 
-  constructor() {
+  constructor(private notes: NotesService) {
     this.subscriptions.add(
       this.importRequest.subscribe(() => {
         if (!this.element) {
@@ -29,14 +32,10 @@ export class ImportService implements OnDestroy {
     this.subscriptions.add(
       this.fileEvent.pipe(
         switchMap(() => this.readFile()),
-      ).subscribe((file) => {
-        try {
-          const val = JSON.parse(file);
-          console.log(val);
-        } catch (error) {
-          console.error('File is not valid json');
-        }
-      }),
+        switchMap((text) => this.extractExportedData(text)),
+        switchMap((data) => this.validateExportedData(data)),
+        switchMap((data) => this.importData(data)),
+      ).subscribe(),
     );
   }
 
@@ -52,7 +51,7 @@ export class ImportService implements OnDestroy {
     if (this.element?.files?.length) {
       return of(this.element.files[0]);
     } else {
-      return throwError('No file selected');
+      return throwError(() => 'No file selected');
     }
   }
 
@@ -82,5 +81,35 @@ export class ImportService implements OnDestroy {
       };
       reader.readAsText(file);
     });
+  }
+
+  private extractExportedData(text: string): Observable<ExportedData> {
+    try {
+      const data = JSON.parse(text);
+      return of(data);
+    } catch {
+      console.error('File is not valid json');
+      return EMPTY;
+    }
+  }
+
+  private validateExportedData(data: ExportedData): Observable<ExportedData> {
+    return forkJoin([this.notes.validateImport(data)]).pipe(
+      switchMap((results) => {
+        if (results.some((result) => !result)) {
+          console.error('Some validation error occurred!');
+          return EMPTY;
+        }
+        return of(data);
+      }),
+    );
+  }
+
+  private importData(data: ExportedData): Observable<void> {
+    return forkJoin([this.notes.importFrom(data)]).pipe(
+      map(() => {
+        console.log('Import complete');
+      }),
+    );
   }
 }

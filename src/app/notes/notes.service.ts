@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { StorageKey, StorageService } from '@level23archbard/storage-service';
-import { AsyncSubject, Observable } from 'rxjs';
+import { AsyncSubject, Observable, of } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 
 import { IdService } from '../id.service';
+import { ExportableService, ExportedData } from '../settings/export.model';
 
 export interface NoteEntry {
   id: string;
@@ -14,7 +15,7 @@ export interface NoteEntry {
 @Injectable({
   providedIn: 'root',
 })
-export class NotesService {
+export class NotesService implements ExportableService {
 
   private noteEntries: StorageKey<NoteEntry[]>;
 
@@ -101,5 +102,39 @@ export class NotesService {
 
   updateNoteValue(id: string, text: string): void {
     this.getNoteValueStorageKey(id).set(text);
+  }
+
+  exportInto(data: ExportedData): Observable<ExportedData> {
+    const noteEntries = this.noteEntries.getCurrentWithDefault([]);
+    data.noteEntries = noteEntries;
+    const notes = noteEntries.map((entry) => [entry.id, this.getNoteValueStorageKey(entry.id).getCurrentWithDefault('')]);
+    data.notes = {};
+    notes.forEach(([id, note]) => {
+      data.notes[id] = note;
+    });
+    return of(data);
+  }
+
+  validateImport(data: ExportedData): Observable<boolean> {
+    if (!Array.isArray(data.noteEntries)) {
+      return of(false);
+    }
+    for (const entry of data.noteEntries) {
+      if (typeof entry.id !== 'string' || typeof entry.name !== 'string') {
+        return of(false);
+      }
+    }
+    if (!data.notes) {
+      return of(false);
+    }
+    return of(true);
+  }
+
+  importFrom(data: ExportedData): Observable<void> {
+    this.noteEntries.set(data.noteEntries);
+    for (const entry of data.noteEntries) {
+      this.getNoteValueStorageKey(entry.id).set(data.notes[entry.id]);
+    }
+    return of(void 0);
   }
 }
