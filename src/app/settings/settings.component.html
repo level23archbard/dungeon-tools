@@ -8,6 +8,14 @@
   </div>
 </header>
 <div class="content">
-  <button (click)="onClickExport()">Export</button>
-  <button (click)="onClickImport()">Import</button>
+  <h2>Export Data</h2>
+  <p>Export all Dungeon Tools data to a downloaded file for safekeeping.</p>
+  <div class="action">
+    <div class="action-button" (click)="onClickExport()">Export</div>
+  </div>
+  <h2>Import Data</h2>
+  <p>Import and restore Dungeon Tools data from a backup file.</p>
+  <div class="action">
+    <div class="action-button" (click)="onClickImport()">Import</div>
+  </div>
 </div>

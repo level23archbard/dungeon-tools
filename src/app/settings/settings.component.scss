@@ -36,5 +36,18 @@
 .content {
   flex: 1;
   overflow-y: auto;
+  padding: 1rem;
   background-color: $card;
+}
+
+.action {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.action-button {
+  @include button-text();
 }
