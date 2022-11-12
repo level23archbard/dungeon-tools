@@ -1,8 +1,8 @@
 <ng-container *ngIf="elements">
   <p *ngFor="let line of elements.lines">
     <ng-container *ngFor="let part of line.parts">
-      <a *ngIf="part.linkPart" [routerLink]="part.linkRef" [ngClass]="{ 'link-invalid': part.linkInvalid }">{{ part.linkPart }}</a>
-      <span *ngIf="part.textPart">{{ part.textPart }}</span>
+      <a *ngIf="part.linkPart" [routerLink]="part.linkRef" (click)="clickedLink($event, part)" [ngClass]="{ 'link-invalid': part.linkInvalid }">{{ part.linkPart }}</a>
+      <ng-container *ngIf="part.textPart">{{ part.textPart }}</ng-container>
     </ng-container>
   </p>
 </ng-container>

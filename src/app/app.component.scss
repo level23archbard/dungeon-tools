@@ -1,4 +1,5 @@
 @import 'src/styles/colors';
+@import 'src/styles/buttons';
 
 .page {
   display: flex;
@@ -22,12 +23,11 @@
   }
 
   &-button {
-    width: 3rem;
-    height: 3rem;
-    line-height: 3rem;
+    @include button-text();
     text-align: center;
+    color: $bar-primary;
 
-    &:active {
+    &:hover {
       color: $bar-primary-highlight;
     }
   }

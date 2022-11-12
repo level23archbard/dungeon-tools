@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, Output, SimpleChanges } from '@angular/core';
 import { from, Observable, of, Subscription } from 'rxjs';
 import { map, mergeMap, toArray } from 'rxjs/operators';
 
@@ -35,6 +35,7 @@ export class InscriptionViewerComponent implements OnChanges, OnDestroy {
 
   @Input() value?: string;
   @Input() linkEvaluator?: InscriptionLinkEvaluator;
+  @Output() selectedInvalidLink = new EventEmitter<string>();
   elements?: InscriptionElements;
   private subscriptions = new Subscription();
 
@@ -103,5 +104,11 @@ export class InscriptionViewerComponent implements OnChanges, OnDestroy {
       toArray(),
       map((lines) => ({ lines }))
     );
+  }
+
+  clickedLink(event: any, part: InscriptionLineParts): void {
+    if (part.linkInvalid && part.linkPart) {
+      this.selectedInvalidLink.emit(part.linkPart);
+    }
   }
 }

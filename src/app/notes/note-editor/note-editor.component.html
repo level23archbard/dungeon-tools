@@ -2,4 +2,5 @@
   [value]="noteValue"
   (valueChanged)="onNoteChanged($event)"
   [linkEvaluator]="linker"
+  (selectedInvalidLink)="onSelectedInvalidLink($event)"
 ></lxs-inscription-editor>

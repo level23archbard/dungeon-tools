@@ -15,8 +15,9 @@ export class InscriptionEditorComponent implements OnChanges, OnInit, OnDestroy 
   @Input() value?: string;
   @Output() valueChanged = new EventEmitter<string>();
   @Input() linkEvaluator?: InscriptionLinkEvaluator;
+  @Output() selectedInvalidLink = new EventEmitter<string>();
   valueControl = new FormControl('');
-  isEditing = true;
+  isEditing = false;
   private subscriptions = new Subscription();
 
   ngOnChanges(changes: SimpleChanges): void {

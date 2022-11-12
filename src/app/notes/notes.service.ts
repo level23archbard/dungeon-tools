@@ -42,12 +42,12 @@ export class NotesService {
     return returnSubject.asObservable();
   }
 
-  addNoteEntry(): Observable<string> {
+  addNoteEntry(name?: string): Observable<string> {
     return this.operateOnNoteEntries((noteEntries) => {
       const id = this.id.generate();
       noteEntries.unshift({
         id,
-        name: 'New Note',
+        name: name || 'New Note',
         link: '',
       });
       return id;
