@@ -1,10 +1,10 @@
 {
   "name": "dungeon-tools",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "scripts": {
     "start": "ng serve",
     "build": "npm run build:package && npm run build:routes_fix",
-    "build:package": "ng build --configuration production=true --baseHref=/dungeon-tools/",
+    "build:package": "ng build --configuration production --base-href /dungeon-tools/",
     "build:routes_fix": "cp dist/dungeon-tools/index.html dist/dungeon-tools/404.html",
     "test": "npm run test:code && npm run test:e2e",
     "test:code": "ng test",
