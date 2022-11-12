@@ -8,6 +8,9 @@
       <div class="bar-button" (click)="onClickDice()">
         Dice
       </div>
+      <div class="bar-button" (click)="onClickSettings()">
+        Settings
+      </div>
     </div>
     <nav class="nav-bar">
       <ul>
@@ -16,10 +19,10 @@
       </ul>
     </nav>
   </header>
-  <div class="main">
+  <div class="main" (click)="onSideClose()">
     <router-outlet></router-outlet>
   </div>
-  <footer>
+  <footer (click)="onSideClose()">
     <div class="footer">
       Learn more about Dungeon Tools <a routerLink="about">here</a>
       |
@@ -27,6 +30,9 @@
     </div>
   </footer>
   <div @showSideTrigger *ngIf="showSide" class="side">
-    <lxs-dice (closeEvent)="onDiceClose()"></lxs-dice>
+    <ng-container [ngSwitch]="showSide">
+      <lxs-dice *ngSwitchCase="'DICE'" (closeEvent)="onSideClose()"></lxs-dice>
+      <lxs-settings *ngSwitchCase="'SETTINGS'" (closeEvent)="onSideClose()"></lxs-settings>
+    </ng-container>
   </div>
 </div>

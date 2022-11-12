@@ -33,7 +33,7 @@ const WELCOME = 'welcome';
 })
 export class AppComponent implements OnInit {
 
-  showSide: 'DICE' | null = null;
+  showSide: 'DICE' | 'SETTINGS' | null = null;
   showWelcome = false;
 
   constructor(private router: Router, private dialog: MatDialog, private welcome: WelcomeService) {}
@@ -64,7 +64,11 @@ export class AppComponent implements OnInit {
     this.showSide = 'DICE';
   }
 
-  onDiceClose(): void {
+  onClickSettings(): void {
+    this.showSide = 'SETTINGS';
+  }
+
+  onSideClose(): void {
     this.showSide = null;
   }
 }

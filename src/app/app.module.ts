@@ -22,6 +22,7 @@ import { NotesComponent } from './notes/notes.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { NoteDeletePopupComponent } from './notes/note-delete-popup/note-delete-popup.component';
 import { NoteHelpComponent } from './notes/note-help/note-help.component';
+import { SettingsComponent } from './settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { NoteHelpComponent } from './notes/note-help/note-help.component';
     WelcomeComponent,
     NoteDeletePopupComponent,
     NoteHelpComponent,
+    SettingsComponent,
   ],
   imports: [
     BrowserModule,

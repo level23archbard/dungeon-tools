@@ -1,0 +1,40 @@
+@import 'src/styles/colors';
+@import 'src/styles/buttons';
+
+:host {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+}
+
+.bar {
+  display: flex;
+  flex-flow: row;
+  background-color: $bar-background;
+  color: $bar-primary;
+
+  &-title {
+    padding: 1rem;
+    text-transform: uppercase;
+  }
+
+  &-spacer {
+    flex: 1;
+  }
+
+  &-close {
+    @include button-text();
+    text-align: center;
+    color: $bar-primary;
+
+    &:hover {
+      color: $bar-primary-highlight;
+    }
+  }
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+  background-color: $card;
+}
