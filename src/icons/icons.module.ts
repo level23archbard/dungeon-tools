@@ -35,6 +35,6 @@ export class IconsModule {
   }
 
   private addIcon(iconName: string) {
-    this.iconRegistry.addSvgIcon(iconName, this.sanitizer.bypassSecurityTrustResourceUrl(`../assets/${iconName}.svg`));
+    this.iconRegistry.addSvgIcon(iconName, this.sanitizer.bypassSecurityTrustResourceUrl(`assets/${iconName}.svg`));
   }
 }
