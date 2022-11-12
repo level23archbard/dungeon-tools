@@ -27,6 +27,7 @@ module.exports = {
         'plugin:@angular-eslint/template/process-inline-templates',
         'plugin:import/errors',
         'plugin:import/warnings',
+        'plugin:import/typescript',
       ],
       'settings': {
         'import/resolver': {
@@ -34,7 +35,9 @@ module.exports = {
             'extensions': [
               '.js',
               '.ts',
-            ]
+              '.d.ts',
+            ],
+            'moduleDirectory': ['node_modules', '.'],
           }
         }
       },
@@ -77,6 +80,7 @@ module.exports = {
               'order': 'asc',
               'caseInsensitive': true,
             },
+            'groups': ['builtin', 'external', 'internal', ['parent', 'sibling']],
             'newlines-between': 'always'
           }
         ],

@@ -5,6 +5,7 @@ import { filter, switchMap } from 'rxjs/operators';
 
 import { LinkerService } from 'src/app/linker.service';
 import { SettingsService } from 'src/app/settings.service';
+
 import { NotesService } from '../notes.service';
 
 @Component({
@@ -35,7 +36,7 @@ export class NoteEditorComponent implements OnChanges, OnInit, OnDestroy {
         switchMap((id) => this.notes.getCurrentNoteValue(id as string)),
       ).subscribe((value) => {
         this.noteValue = value;
-      })
+      }),
     );
     this.subscriptions.add(
       this.selectedInvalidLink.pipe(
@@ -43,7 +44,7 @@ export class NoteEditorComponent implements OnChanges, OnInit, OnDestroy {
       ).subscribe((entryId) => {
         this.settings.setSetting('notesSelectedId', entryId);
         this.router.navigate(['notes', entryId]);
-      })
+      }),
     );
   }
 

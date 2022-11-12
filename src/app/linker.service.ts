@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, ReplaySubject } from 'rxjs';
-import { map, take, tap } from 'rxjs/operators';
+import { Observable, ReplaySubject } from 'rxjs';
+import { map, take } from 'rxjs/operators';
 
 import { NoteEntry, NotesService } from './notes/notes.service';
 
@@ -10,7 +10,7 @@ export interface Link {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LinkerService {
 
@@ -21,7 +21,7 @@ export class LinkerService {
   }
 
   private reduce(str: string): string {
-    return str.replace(/[^A-Za-z0-9]/g, '').toLowerCase()
+    return str.replace(/[^A-Za-z0-9]/g, '').toLowerCase();
   }
 
   evaluate(tag: string): Observable<Link | null> {
@@ -38,7 +38,7 @@ export class LinkerService {
         }
         return null;
       }),
-      take(1)
+      take(1),
     );
   }
 }

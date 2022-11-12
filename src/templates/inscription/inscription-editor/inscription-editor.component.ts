@@ -8,7 +8,7 @@ import { InscriptionLinkEvaluator } from '../inscription-viewer/inscription-view
 @Component({
   selector: 'lxs-inscription-editor',
   templateUrl: './inscription-editor.component.html',
-  styleUrls: ['./inscription-editor.component.scss']
+  styleUrls: ['./inscription-editor.component.scss'],
 })
 export class InscriptionEditorComponent implements OnChanges, OnInit, OnDestroy {
 

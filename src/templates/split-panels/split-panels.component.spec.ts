@@ -8,9 +8,9 @@ describe('SplitPanelsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SplitPanelsComponent ]
+      declarations: [ SplitPanelsComponent ],
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

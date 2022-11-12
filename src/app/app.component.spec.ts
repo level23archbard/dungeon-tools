@@ -37,7 +37,7 @@ describe('AppComponent', () => {
     expect(component.showSide).toBeNull();
     component.onClickDice();
     expect(component.showSide).toBe('DICE');
-    component.onDiceClose();
+    component.onSideClose();
     expect(component.showSide).toBeNull();
   });
 

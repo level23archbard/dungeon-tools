@@ -8,9 +8,9 @@ describe('NoteDeletePopupComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NoteDeletePopupComponent ]
+      declarations: [ NoteDeletePopupComponent ],
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

@@ -1,10 +1,11 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { forkJoin, Observable, of, Subject, Subscription } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
+
 import { NotesService } from '../notes/notes.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ExportService implements OnDestroy {
 
@@ -23,7 +24,7 @@ export class ExportService implements OnDestroy {
         this.element.setAttribute('href', `data:text/json;charset=utf-8,${encodeURIComponent(output)}`);
         this.element.setAttribute('download', 'Dungeon Tools Data.json');
         this.element.dispatchEvent(new MouseEvent('click'));
-      })
+      }),
     );
   }
 

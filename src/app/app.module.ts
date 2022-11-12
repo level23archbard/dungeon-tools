@@ -10,6 +10,7 @@ import { IconsModule } from 'src/icons/icons.module';
 import { InscriptionModule } from 'src/templates/inscription/inscription.module';
 import { SideListingModule } from 'src/templates/side-listing/side-listing.module';
 import { SplitPanelsModule } from 'src/templates/split-panels/split-panels.module';
+
 import { AboutComponent } from './about/about.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,12 +18,12 @@ import { CharactersComponent } from './characters/characters.component';
 import { DiceComponent } from './dice/dice.component';
 import { E404Component } from './e404/e404.component';
 import { HomeComponent } from './home/home.component';
-import { NoteEditorComponent } from './notes/note-editor/note-editor.component';
-import { NotesComponent } from './notes/notes.component';
-import { WelcomeComponent } from './welcome/welcome.component';
 import { NoteDeletePopupComponent } from './notes/note-delete-popup/note-delete-popup.component';
+import { NoteEditorComponent } from './notes/note-editor/note-editor.component';
 import { NoteHelpComponent } from './notes/note-help/note-help.component';
+import { NotesComponent } from './notes/notes.component';
 import { SettingsComponent } from './settings/settings.component';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 @NgModule({
   declarations: [
@@ -59,8 +60,8 @@ import { SettingsComponent } from './settings/settings.component';
         disableClose: true,
         hasBackdrop: true,
         panelClass: 'lxs-dialog-card',
-      }
-    }
+      },
+    },
   ],
   bootstrap: [AppComponent],
 })

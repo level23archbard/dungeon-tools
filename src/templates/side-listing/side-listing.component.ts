@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export interface SideListingEntry {
   id: string;
   name: string;
-};
+}
 
 @Component({
   selector: 'lxs-side-listing',
@@ -19,7 +19,7 @@ export class SideListingComponent {
   @Output() addEvent = new EventEmitter<void>();
   @Output() helpEvent = new EventEmitter<void>();
   @Output() selectEvent = new EventEmitter<string>();
-  @Output() moveEvent = new EventEmitter<{ from: number, to: number }>();
+  @Output() moveEvent = new EventEmitter<{ from: number; to: number }>();
 
   onClickAdd(): void {
     this.addEvent.emit();
@@ -35,13 +35,13 @@ export class SideListingComponent {
 
   onClickMoveUp(event: Event, entry: SideListingEntry, index: number): void {
     event.stopPropagation();
-    if (index === 0) { return };
+    if (index === 0) { return; }
     this.moveEvent.emit({ from: index, to: index - 1 });
   }
 
   onClickMoveDown(event: Event, entry: SideListingEntry, index: number): void {
     event.stopPropagation();
-    if (index === this.entries?.length ?? 0 - 1) { return };
+    if (index === this.entries?.length ?? 0 - 1) { return; }
     this.moveEvent.emit({ from: index, to: index + 1 });
   }
 

@@ -9,7 +9,7 @@ export interface Settings {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SettingsService {
 
@@ -28,7 +28,7 @@ export class SettingsService {
   getSetting<K extends keyof Settings>(key: K): Observable<Partial<Settings>[K]> {
     return this.settingsSubject.pipe(
       map((settings) => settings[key]),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 

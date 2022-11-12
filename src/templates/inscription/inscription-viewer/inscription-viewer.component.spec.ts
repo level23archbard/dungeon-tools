@@ -8,9 +8,9 @@ describe('InscriptionViewerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ InscriptionViewerComponent ]
+      declarations: [ InscriptionViewerComponent ],
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

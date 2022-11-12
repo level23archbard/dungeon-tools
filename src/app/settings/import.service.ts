@@ -3,7 +3,7 @@ import { EMPTY, from, Observable, of, Subject, Subscription, throwError } from '
 import { catchError, switchMap } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ImportService implements OnDestroy {
 
@@ -19,12 +19,12 @@ export class ImportService implements OnDestroy {
           this.element = document.createElement('input');
           this.element.setAttribute('type', 'file');
           this.element.setAttribute('accept', 'text/json');
-          this.element.addEventListener('change', (event) => {
+          this.element.addEventListener('change', (_) => {
             this.fileEvent.next();
           });
         }
         this.element.dispatchEvent(new MouseEvent('click'));
-      })
+      }),
     );
     this.subscriptions.add(
       this.fileEvent.pipe(
@@ -36,7 +36,7 @@ export class ImportService implements OnDestroy {
         } catch (error) {
           console.error('File is not valid json');
         }
-      })
+      }),
     );
   }
 

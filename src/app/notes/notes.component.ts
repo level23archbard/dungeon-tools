@@ -23,7 +23,13 @@ export class NotesComponent implements OnInit, OnDestroy {
   renamingControl = new UntypedFormControl('');
   isDeleting = false;
 
-  constructor(private route: ActivatedRoute, private router: Router, private dialog: MatDialog, private settings: SettingsService, private notes: NotesService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private dialog: MatDialog,
+    private settings: SettingsService,
+    private notes: NotesService,
+  ) {}
 
   ngOnInit(): void {
     this.subscriptions.add(combineLatest([this.route.paramMap, this.notes.noteEntriesList]).subscribe(([params, entries]) => {
@@ -62,7 +68,7 @@ export class NotesComponent implements OnInit, OnDestroy {
       this.notes.addNoteEntry().subscribe((entryId) => {
         this.settings.setSetting('notesSelectedId', entryId);
         this.router.navigate(['notes', entryId]);
-      })
+      }),
     );
   }
 
@@ -78,7 +84,7 @@ export class NotesComponent implements OnInit, OnDestroy {
     }
   }
 
-  onClickMoveNoteEntry(movement: { from: number, to: number }): void {
+  onClickMoveNoteEntry(movement: { from: number; to: number }): void {
     this.notes.moveNoteEntry(movement.from, movement.to);
   }
 
@@ -107,7 +113,7 @@ export class NotesComponent implements OnInit, OnDestroy {
           this.settings.setSetting('notesSelectedId', null);
           this.notes.deleteNoteEntry(this.activeNoteEntryId || '');
         }
-      })
+      }),
     );
   }
 }

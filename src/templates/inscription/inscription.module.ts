@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { IconsModule } from 'src/icons/icons.module';
+
 import { InscriptionEditorComponent } from './inscription-editor/inscription-editor.component';
 import { InscriptionViewerComponent } from './inscription-viewer/inscription-viewer.component';
 

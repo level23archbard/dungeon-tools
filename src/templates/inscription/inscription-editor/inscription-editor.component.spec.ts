@@ -8,9 +8,9 @@ describe('InscriptionEditorComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ InscriptionEditorComponent ]
+      declarations: [ InscriptionEditorComponent ],
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

@@ -29,7 +29,7 @@ interface InscriptionElements {
 @Component({
   selector: 'lxs-inscription-viewer',
   templateUrl: './inscription-viewer.component.html',
-  styleUrls: ['./inscription-viewer.component.scss']
+  styleUrls: ['./inscription-viewer.component.scss'],
 })
 export class InscriptionViewerComponent implements OnChanges, OnDestroy {
 
@@ -52,23 +52,19 @@ export class InscriptionViewerComponent implements OnChanges, OnDestroy {
   }
 
   private makeInscriptionLink(expression: string): Observable<Pick<InscriptionLineParts, 'linkPart' | 'linkInvalid' | 'linkRef'>> {
-    return (this.linkEvaluator?.evaluate(expression) || of(null)).pipe(map((link) => {
-      return {
-        linkPart: link?.text || expression,
-        linkInvalid: !link,
-        linkRef: link?.ref,
-      };
-    }));
+    return (this.linkEvaluator?.evaluate(expression) || of(null)).pipe(map((link) => ({
+      linkPart: link?.text || expression,
+      linkInvalid: !link,
+      linkRef: link?.ref,
+    })));
   }
 
   private makeInscriptionLineParts(textPart: string, linkExpression?: string): Observable<InscriptionLineParts> {
     if (linkExpression) {
-      return this.makeInscriptionLink(linkExpression).pipe(map((link) => {
-        return {
-          ...link,
-          textPart,
-        }
-      }));
+      return this.makeInscriptionLink(linkExpression).pipe(map((link) => ({
+        ...link,
+        textPart,
+      })));
     } else {
       return of({
         textPart,
@@ -91,7 +87,7 @@ export class InscriptionViewerComponent implements OnChanges, OnDestroy {
           }
         }),
         toArray(),
-        map((parts) => ({ parts }))
+        map((parts) => ({ parts })),
       );
     } else {
       return this.makeInscriptionLineParts('\u00a0').pipe(map((parts) => ({ parts: [parts] })));
@@ -102,7 +98,7 @@ export class InscriptionViewerComponent implements OnChanges, OnDestroy {
     return from(text.split('\n')).pipe(
       mergeMap((line) => this.makeInscriptionLine(line)),
       toArray(),
-      map((lines) => ({ lines }))
+      map((lines) => ({ lines })),
     );
   }
 
