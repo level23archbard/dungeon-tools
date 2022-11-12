@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, Subscription } from 'rxjs';
@@ -20,7 +20,7 @@ export class NotesComponent implements OnInit, OnDestroy {
   activeNoteEntryId?: string;
   activeNoteEntryName?: string;
   isRenaming = false;
-  renamingControl = new FormControl('');
+  renamingControl = new UntypedFormControl('');
   isDeleting = false;
 
   constructor(private route: ActivatedRoute, private router: Router, private dialog: MatDialog, private settings: SettingsService, private notes: NotesService) {}

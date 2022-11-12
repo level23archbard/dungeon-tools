@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 
@@ -16,7 +16,7 @@ export class InscriptionEditorComponent implements OnChanges, OnInit, OnDestroy 
   @Output() valueChanged = new EventEmitter<string>();
   @Input() linkEvaluator?: InscriptionLinkEvaluator;
   @Output() selectedInvalidLink = new EventEmitter<string>();
-  valueControl = new FormControl('');
+  valueControl = new UntypedFormControl('');
   isEditing = false;
   private subscriptions = new Subscription();
 
