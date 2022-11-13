@@ -9,6 +9,7 @@
 </header>
 <div class="content">
   <div class="dice-list">
+    <div *ngIf="rollingText" class="dice-result">{{ rollingText }}</div>
     <div *ngIf="activeResult" class="dice-result" [ngClass]="{'critical-success': activeResult.critical === 'SUCCESS', 'critical-failure': activeResult.critical === 'FAILURE'}">
       {{ activeResult.value }}
     </div>
