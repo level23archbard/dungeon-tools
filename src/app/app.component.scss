@@ -7,58 +7,6 @@
   min-height: 100%;
 }
 
-.bar {
-  display: flex;
-  flex-flow: row;
-  background-color: $bar-background;
-  color: $bar-primary;
-
-  &-title {
-    padding: 1rem;
-    text-transform: uppercase;
-  }
-
-  &-spacer {
-    flex: 1;
-  }
-
-  &-button {
-    @include button-text();
-    text-align: center;
-    color: $bar-primary;
-
-    &:hover {
-      color: $bar-primary-highlight;
-    }
-  }
-}
-
-.nav-bar {
-  background-color: $bar-background;
-  color: $bar-primary;
-
-  & ul {
-    display: flex;
-    flex-flow: row;
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-  }
-
-  & li a {
-    display: block;
-    padding: 0.75rem 1rem;
-    color: inherit;
-    text-align: center;
-    text-decoration: none;
-    outline: none;
-
-    &:hover {
-      color: $bar-primary-highlight;
-    }
-  }
-}
-
 .main {
   flex: 1;
   display: flex;
@@ -67,6 +15,7 @@
 
   & ::ng-deep > *:not(router-outlet) {
     flex: 1;
+    display: flex;
   }
 }
 

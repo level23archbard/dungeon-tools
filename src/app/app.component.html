@@ -1,24 +1,5 @@
 <div class="page">
-  <header>
-    <div class="bar">
-      <div class="bar-title">
-        Dungeon Tools
-      </div>
-      <div class="bar-spacer"></div>
-      <div class="bar-button" (click)="onClickDice()">
-        Dice
-      </div>
-      <div class="bar-button" (click)="onClickSettings()">
-        Settings
-      </div>
-    </div>
-    <nav class="nav-bar">
-      <ul>
-        <li><a routerLink="home">Home</a></li>
-        <li><a routerLink="notes">Notes</a></li>
-      </ul>
-    </nav>
-  </header>
+  <lxs-app-header (clickDice)="onClickDice()" (clickSettings)="onClickSettings()"></lxs-app-header>
   <div class="main" (click)="onSideClose()">
     <router-outlet></router-outlet>
   </div>
@@ -26,7 +7,7 @@
     <div class="footer">
       Learn more about Dungeon Tools <a routerLink="about">here</a>
       |
-      © 2021 level23archbard
+      © 2023 level23archbard
     </div>
   </footer>
   <div @showSideTrigger *ngIf="showSide" class="side">

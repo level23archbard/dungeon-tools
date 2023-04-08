@@ -4,9 +4,11 @@
   display: flex;
   flex-flow: row;
   align-items: flex-start;
+  width: 100%;
 }
 
 .side {
+  flex: 0 0 auto;
   width: 16rem;
   align-self: stretch;
   border-right: 0.0625rem solid $side-menu-border;
@@ -14,5 +16,6 @@
 }
 
 main {
-  flex: 1
+  flex: 1;
+  min-width: 0;
 }

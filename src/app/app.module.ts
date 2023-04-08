@@ -12,12 +12,14 @@ import { SideListingModule } from 'src/templates/side-listing/side-listing.modul
 import { SplitPanelsModule } from 'src/templates/split-panels/split-panels.module';
 
 import { AboutComponent } from './about/about.component';
+import { AppHeaderComponent } from './app-header/app-header.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CharactersComponent } from './characters/characters.component';
 import { DiceComponent } from './dice/dice.component';
 import { E404Component } from './e404/e404.component';
 import { HomeComponent } from './home/home.component';
+import { MapsComponent } from './maps/maps.component';
 import { NoteDeletePopupComponent } from './notes/note-delete-popup/note-delete-popup.component';
 import { NoteEditorComponent } from './notes/note-editor/note-editor.component';
 import { NoteHelpComponent } from './notes/note-help/note-help.component';
@@ -26,32 +28,34 @@ import { SettingsComponent } from './settings/settings.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 
 @NgModule({
+  imports: [
+    AppRoutingModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    CommonModule,
+    IconsModule,
+    InscriptionModule,
+    MatDialogModule,
+    ReactiveFormsModule,
+    SideListingModule,
+    SplitPanelsModule,
+    StorageModule,
+  ],
   declarations: [
     AboutComponent,
     AppComponent,
+    AppHeaderComponent,
     CharactersComponent,
     DiceComponent,
     E404Component,
     HomeComponent,
-    NoteEditorComponent,
-    NotesComponent,
-    WelcomeComponent,
+    MapsComponent,
     NoteDeletePopupComponent,
+    NoteEditorComponent,
     NoteHelpComponent,
+    NotesComponent,
     SettingsComponent,
-  ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    CommonModule,
-    MatDialogModule,
-    StorageModule,
-    ReactiveFormsModule,
-    AppRoutingModule,
-    IconsModule,
-    InscriptionModule,
-    SideListingModule,
-    SplitPanelsModule,
+    WelcomeComponent,
   ],
   providers: [
     {

@@ -49,6 +49,7 @@ main {
 .lxs-dialog-card {
   .mat-dialog-container {
     @include card();
+    border-radius: 0;
     box-shadow: 0 0 1.5rem $overlay-shadow;
   }
 }

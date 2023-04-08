@@ -1,0 +1,27 @@
+.grid-options {
+  &-middle {
+    display: flex;
+    align-items: center;
+  }
+
+  &-center {
+    flex: 1;
+  }
+
+  &-left {
+    flex: 0;
+  }
+
+  &-right {
+    flex: 0;
+  }
+}
+
+.container {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.map {
+  margin: auto;
+}

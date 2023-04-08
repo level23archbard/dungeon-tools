@@ -32,7 +32,6 @@
 }
 
 @mixin button-icon($width, $height) {
-  // Until we find a better way of recoloring static icons, create filters here: https://codepen.io/sosuke/pen/Pjoqqp
   display: flex;
   justify-content: center;
   align-items: center;

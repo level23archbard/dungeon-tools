@@ -1,14 +1,6 @@
 @import 'src/styles/card';
 @import 'src/styles/buttons';
 
-:host {
-  display: flex;
-
-  > * {
-    flex: 1;
-  }
-}
-
 .header {
   display: flex;
   flex-flow: row;

@@ -1,6 +1,6 @@
 {
   "name": "dungeon-tools",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "scripts": {
     "start": "ng serve",
     "build": "npm run build:package && npm run build:routes_fix",
@@ -29,6 +29,8 @@
     "@angular/platform-browser-dynamic": "^14.2.10",
     "@angular/router": "^14.2.10",
     "@level23archbard/storage-service": "~0.0.6",
+    "@svgdotjs/svg.js": "^3.1.2",
+    "honeycomb-grid": "^4.0.1",
     "rxjs": "^7.5.7",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
