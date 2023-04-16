@@ -1,3 +1,4 @@
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
@@ -9,6 +10,7 @@ import { SideListingComponent } from './side-listing.component';
   declarations: [SideListingComponent],
   imports: [
     CommonModule,
+    DragDropModule,
     IconsModule,
   ],
   exports: [SideListingComponent],

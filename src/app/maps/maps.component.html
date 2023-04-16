@@ -1,36 +1,17 @@
 <lxs-split-panels>
-  <div side>
-    <div>{{ gridColumns}} Columns</div>
-    <div>{{ gridRows }} Rows</div>
-    <div (click)="onAdd('top')">Row to Top</div>
-    <div class="grid-options-middle">
-      <div class="grid-options-left">
-        <div (click)="onAdd('left')">Column to Left</div>
-      </div>
-      <div class="grid-options-center">
-        Add Tiles
-      </div>
-      <div class="grid-options-right">
-        <div (click)="onAdd('right')">Column to Right</div>
-      </div>
-    </div>
-    <div (click)="onAdd('bottom')">Row to Bottom</div>
+  <ng-container side>
+    <lxs-maps-list *ngIf="state.state === 'list'"></lxs-maps-list>
+    <lxs-map-panel *ngIf="state.state === 'map'"
+      [mapEntry]="state.mapEntry"
+      [mapData]="state.mapData"
+      (clickAdd)="onAdd($event)"
+      (clickRemove)="onRemove($event)"
+    ></lxs-map-panel>
+  </ng-container>
 
-    <div (click)="onRemove('top')">Row From Top</div>
-    <div class="grid-options-middle">
-      <div class="grid-options-left">
-        <div (click)="onRemove('left')">Column from Left</div>
-      </div>
-      <div class="grid-options-center">
-        Remove Tiles
-      </div>
-      <div class="grid-options-right">
-        <div (click)="onRemove('right')">Column from Right</div>
-      </div>
-    </div>
-    <div (click)="onRemove('bottom')">Row from Bottom</div>
-  </div>
-  <div class="container">
-    <div #map class="map" (click)="onClickGrid($event)" [ngStyle]="{ 'width.px': mapWidth, 'height.px': mapHeight }"></div>
-  </div>
+  <lxs-maps-help *ngIf="state.state === 'list'"></lxs-maps-help>
+  <lxs-map-display *ngIf="state.state === 'map'"
+    [mapEntry]="state.mapEntry"
+    [mapData]="state.mapData"
+  ></lxs-map-display>
 </lxs-split-panels>

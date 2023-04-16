@@ -1,3 +1,4 @@
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 export interface SideListingEntry {
@@ -16,6 +17,8 @@ export class SideListingComponent {
   @Input() entries?: SideListingEntry[];
   @Input() selectedEntryId?: string;
 
+  @Input() showHelp?: boolean;
+
   @Output() addEvent = new EventEmitter<void>();
   @Output() helpEvent = new EventEmitter<void>();
   @Output() selectEvent = new EventEmitter<string>();
@@ -33,16 +36,9 @@ export class SideListingComponent {
     this.selectEvent.emit(entry.id);
   }
 
-  onClickMoveUp(event: Event, entry: SideListingEntry, index: number): void {
-    event.stopPropagation();
-    if (index === 0) { return; }
-    this.moveEvent.emit({ from: index, to: index - 1 });
-  }
-
-  onClickMoveDown(event: Event, entry: SideListingEntry, index: number): void {
-    event.stopPropagation();
-    if (index === this.entries?.length ?? 0 - 1) { return; }
-    this.moveEvent.emit({ from: index, to: index + 1 });
+  onDrag(event: CdkDragDrop<unknown>): void {
+    if (event.previousIndex === event.currentIndex) { return; }
+    this.moveEvent.emit({ from: event.previousIndex, to: event.currentIndex });
   }
 
   trackById(index: number, entry: SideListingEntry): string {

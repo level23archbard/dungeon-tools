@@ -2,11 +2,11 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { combineLatest, Subscription } from 'rxjs';
+import { combineLatestWith, NEVER, Observable, of, Subscription, switchMap } from 'rxjs';
 
-import { SettingsService } from '../settings.service';
+import { SettingsService } from '../settings/settings.service';
 import { NoteDeletePopupComponent } from './note-delete-popup/note-delete-popup.component';
-import { NoteEntry, NotesService } from './notes.service';
+import { NotesService } from './notes.service';
 
 @Component({
   selector: 'lxs-notes',
@@ -16,7 +16,6 @@ import { NoteEntry, NotesService } from './notes.service';
 export class NotesComponent implements OnInit, OnDestroy {
 
   private subscriptions = new Subscription();
-  noteEntries?: NoteEntry[];
   activeNoteEntryId?: string;
   activeNoteEntryName?: string;
   isRenaming = false;
@@ -32,29 +31,27 @@ export class NotesComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.subscriptions.add(combineLatest([this.route.paramMap, this.notes.noteEntriesList]).subscribe(([params, entries]) => {
-      this.noteEntries = entries;
-      const id = params.get('id');
-      if (id) {
-        const entry = entries.find((e) => e.id === id);
-        if (entry) {
-          this.activeNoteEntryId = id;
-          this.activeNoteEntryName = entry.name;
-          if (!this.isRenaming) {
-            this.renamingControl.setValue(entry.name);
-          }
-        } else if (this.isDeleting) {
-          this.isDeleting = false;
-          this.router.navigate(['notes']);
+    this.subscriptions.add(this.route.paramMap.pipe(
+      switchMap((params) => {
+        const id = params.get('id');
+        this.activeNoteEntryId = id ?? undefined;
+        if (id) {
+          return this.notes.getNoteEntry(id).pipe(combineLatestWith(of(id)));
         } else {
-          this.router.navigate(['notes-not-found', id]);
+          return this.redirectToRecent();
         }
-        this.activeNoteEntryId = id;
+      }),
+    ).subscribe(([entry, id]) => {
+      if (entry) {
+        this.activeNoteEntryName = entry.name;
+        if (!this.isRenaming) {
+          this.renamingControl.setValue(entry.name);
+        }
+      } else if (this.isDeleting) {
+        this.isDeleting = false;
+        this.router.navigate(['notes']);
       } else {
-        const mostRecentId = this.settings.getCurrentSetting('notesSelectedId');
-        if (mostRecentId && entries.some((entry) => entry.id === mostRecentId)) {
-          this.router.navigate(['notes', mostRecentId]);
-        }
+        this.router.navigate(['notes-not-found', id]);
       }
     }));
   }
@@ -63,29 +60,15 @@ export class NotesComponent implements OnInit, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
-  onClickAddNoteEntry(): void {
-    this.subscriptions.add(
-      this.notes.addNoteEntry().subscribe((entryId) => {
-        this.settings.setSetting('notesSelectedId', entryId);
-        this.router.navigate(['notes', entryId]);
-      }),
-    );
-  }
-
-  onClickAboutNotes(): void {
-    this.settings.setSetting('notesSelectedId', null);
-    this.router.navigate(['notes']);
-  }
-
-  onClickNoteEntry(entryId: string): void {
-    if (entryId !== this.activeNoteEntryId) {
-      this.settings.setSetting('notesSelectedId', entryId);
-      this.router.navigate(['notes', entryId]);
-    }
-  }
-
-  onClickMoveNoteEntry(movement: { from: number; to: number }): void {
-    this.notes.moveNoteEntry(movement.from, movement.to);
+  private redirectToRecent(): Observable<never> {
+    const mostRecentId = this.settings.getCurrentSetting('notesSelectedId');
+    if (!mostRecentId) { return NEVER; }
+    return this.notes.getNoteEntry(mostRecentId).pipe(switchMap((entry) => {
+      if (entry) {
+        this.router.navigate(['notes', mostRecentId]);
+      }
+      return NEVER;
+    }));
   }
 
   onClickRename(): void {

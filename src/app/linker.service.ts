@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 
-import { NoteEntry, NotesService } from './notes/notes.service';
+import { NoteEntry } from './notes/notes.model';
+import { NotesService } from './notes/notes.service';
 
 export interface Link {
   text: string;

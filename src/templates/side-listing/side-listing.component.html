@@ -1,5 +1,5 @@
 <header class="side-header">
-  <div class="side-button" (click)="onClickHelp()">
+  <div *ngIf="showHelp" class="side-button" (click)="onClickHelp()">
     <mat-icon svgIcon="question"></mat-icon>
   </div>
   <div class="side-title">
@@ -9,16 +9,15 @@
     <mat-icon svgIcon="add"></mat-icon>
   </div>
 </header>
-<ng-container *ngIf="entries">
-  <div *ngFor="let entry of entries; index as i; trackBy: trackById" class="side-entry" [ngClass]="{ 'side-entry-active': entry.id === selectedEntryId }" (click)="onClickEntry(entry)">
+<div *ngIf="entries" class="side-entries" cdkDropList (cdkDropListDropped)="onDrag($event)">
+  <div *ngFor="let entry of entries; trackBy: trackById"
+    class="side-entry" [ngClass]="{ 'side-entry-active': entry.id === selectedEntryId }"
+    cdkDrag cdkDragLockAxis="y"
+    (click)="onClickEntry(entry)"
+  >
     <div class="side-entry-content">
-      <div class="side-entry-mover-buttons">
-        <div class="side-entry-mover-button" (click)="onClickMoveUp($event, entry, i)">
-          <mat-icon svgIcon="collapse"></mat-icon>
-        </div>
-        <div class="side-entry-mover-button" (click)="onClickMoveDown($event, entry, i)">
-          <mat-icon svgIcon="expand"></mat-icon>
-        </div>
+      <div class="side-entry-mover-button" cdkDragHandle>
+        <mat-icon svgIcon="handle"></mat-icon>
       </div>
       <div class="side-entry-label">
         {{ entry.name }}
@@ -27,8 +26,12 @@
         <mat-icon svgIcon="forward"></mat-icon>
       </div>
     </div>
+    <div *cdkDragPreview class="side-entry-drag-preview">
+      {{ entry.name }}
+    </div>
+    <div *cdkDragPlaceholder class="side-entry-drag-placeholder"></div>
   </div>
   <div *ngIf="entries.length === 0" class="side-no-content">
     No {{ label }}
   </div>
-</ng-container>
+</div>

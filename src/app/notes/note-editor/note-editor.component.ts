@@ -4,7 +4,7 @@ import { BehaviorSubject, Subject, Subscription } from 'rxjs';
 import { filter, switchMap } from 'rxjs/operators';
 
 import { LinkerService } from 'src/app/linker.service';
-import { SettingsService } from 'src/app/settings.service';
+import { SettingsService } from 'src/app/settings/settings.service';
 
 import { NotesService } from '../notes.service';
 

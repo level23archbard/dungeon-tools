@@ -2,11 +2,10 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
-import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @NgModule({
   imports: [
-    BrowserModule,
     CommonModule,
     HttpClientModule,
     MatIconModule,
@@ -30,6 +29,7 @@ export class IconsModule {
     this.addIcon('delete');
     this.addIcon('expand');
     this.addIcon('forward');
+    this.addIcon('handle');
     this.addIcon('quill');
     this.addIcon('question');
   }

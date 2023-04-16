@@ -10,6 +10,7 @@ import { NavigationEnd, Event, Router } from '@angular/router';
 import { combineLatest } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
+import { AppVersionService } from './app-version.service';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { WelcomeService } from './welcome/welcome.service';
 
@@ -36,7 +37,7 @@ export class AppComponent implements OnInit {
   showSide: 'DICE' | 'SETTINGS' | null = null;
   showWelcome = false;
 
-  constructor(private router: Router, private dialog: MatDialog, private welcome: WelcomeService) {}
+  constructor(private router: Router, private dialog: MatDialog, public appVersion: AppVersionService, private welcome: WelcomeService) {}
 
   ngOnInit(): void {
     combineLatest([

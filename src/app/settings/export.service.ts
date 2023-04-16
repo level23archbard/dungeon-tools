@@ -1,9 +1,10 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { Observable, of, Subject, Subscription } from 'rxjs';
+import { forkJoin, Observable, of, Subject, Subscription } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
 import { NotesService } from '../notes/notes.service';
-import { ExportedData } from './export.model';
+import { ExportableService, ExportedData } from './export.model';
+import { SettingsService } from './settings.service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,10 @@ export class ExportService implements OnDestroy {
   private exportRequest = new Subject<void>();
   private element?: HTMLElement;
 
-  constructor(private notes: NotesService) {
+  constructor(
+    private notes: NotesService,
+    private settings: SettingsService,
+  ) {
     this.subscriptions.add(
       this.exportRequest.pipe(
         switchMap(() => this.generateExport()),
@@ -33,13 +37,17 @@ export class ExportService implements OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
+  private get exportableServices(): ExportableService[] {
+    return [this.notes, this.settings];
+  }
+
   private createEmptyExportedData(): ExportedData {
     return {} as ExportedData;
   }
 
   private generateExport(): Observable<string> {
     return of(this.createEmptyExportedData()).pipe(
-      switchMap((val) => this.notes.exportInto(val)),
+      switchMap((val) => forkJoin(this.exportableServices.map((s) => s.exportInto(val)))),
       map((val) => JSON.stringify(val)),
     );
   }

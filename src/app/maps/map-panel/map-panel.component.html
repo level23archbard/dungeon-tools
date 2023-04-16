@@ -1,0 +1,32 @@
+<div>{{ mapData.gridColumns }} Columns</div>
+<div>{{ mapData.gridRows }} Rows</div>
+
+<div (click)="clickAdd.emit('top')">Row to Top</div>
+<div class="grid-options-middle">
+  <div class="grid-options-left">
+    <div (click)="clickAdd.emit('left')">Column to Left</div>
+  </div>
+  <div class="grid-options-center">
+    Add Tiles
+  </div>
+  <div class="grid-options-right">
+    <div (click)="clickAdd.emit('right')">Column to Right</div>
+  </div>
+</div>
+<div (click)="clickAdd.emit('bottom')">Row to Bottom</div>
+
+<div (click)="clickRemove.emit('top')">Row From Top</div>
+<div class="grid-options-middle">
+  <div class="grid-options-left">
+    <div (click)="clickRemove.emit('left')">Column from Left</div>
+  </div>
+  <div class="grid-options-center">
+    Remove Tiles
+  </div>
+  <div class="grid-options-right">
+    <div (click)="clickRemove.emit('right')">Column from Right</div>
+  </div>
+</div>
+<div (click)="clickRemove.emit('bottom')">Row from Bottom</div>
+
+<lxs-inscription-editor></lxs-inscription-editor>

@@ -1,17 +1,15 @@
 import { Injectable } from '@angular/core';
 import { StorageKey, StorageService } from '@level23archbard/storage-service';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { distinctUntilChanged, map } from 'rxjs/operators';
 
-export interface Settings {
-  notesSelectedId: string | null;
-  notesIsViewing: boolean;
-}
+import { ExportableService, ExportedData } from './export.model';
+import { Settings } from './settings.model';
 
 @Injectable({
   providedIn: 'root',
 })
-export class SettingsService {
+export class SettingsService implements ExportableService {
 
   private settings: StorageKey<Partial<Settings>>;
   private settingsSubject = new BehaviorSubject<Partial<Settings>>({});
@@ -36,5 +34,20 @@ export class SettingsService {
     const settings = this.settingsSubject.value;
     settings[key] = value;
     this.settings.set(settings);
+  }
+
+  exportInto(data: ExportedData): Observable<ExportedData> {
+    data.settings = this.settingsSubject.value;
+    return of(data);
+  }
+
+  validateImport(_data: ExportedData): Observable<boolean> {
+    return of(true);
+  }
+
+  importFrom(data: ExportedData): Observable<void> {
+    this.setSetting('notesSelectedId', data.settings.notesSelectedId);
+    this.setSetting('mapsSelectedId', data.settings.mapsSelectedId);
+    return of(void 0);
   }
 }

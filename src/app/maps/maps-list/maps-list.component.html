@@ -1,0 +1,8 @@
+<lxs-side-listing
+  label="Maps"
+  [entries]="mapEntries"
+  [selectedEntryId]="activeEntryId"
+  (addEvent)="addEvent.next()"
+  (selectEvent)="onSelect($event)"
+  (moveEvent)="onMove($event)"
+></lxs-side-listing>

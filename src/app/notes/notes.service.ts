@@ -5,12 +5,7 @@ import { map, take } from 'rxjs/operators';
 
 import { IdService } from '../id.service';
 import { ExportableService, ExportedData } from '../settings/export.model';
-
-export interface NoteEntry {
-  id: string;
-  name: string;
-  link: string;
-}
+import { NoteData, NoteEntry } from './notes.model';
 
 @Injectable({
   providedIn: 'root',
@@ -24,9 +19,11 @@ export class NotesService implements ExportableService {
   }
 
   get noteEntriesList(): Observable<NoteEntry[]> {
-    return this.noteEntries.get().pipe(
-      map((data) => data || []),
-    );
+    return this.noteEntries.getWithDefault([]);
+  }
+
+  getNoteEntry(id: string): Observable<NoteEntry | undefined> {
+    return this.noteEntriesList.pipe(map((entries) => entries.find((entry) => entry.id === id)));
   }
 
   private operateOnNoteEntries<T>(operation: (noteEntries: NoteEntry[]) => T): Observable<T> {
@@ -49,7 +46,6 @@ export class NotesService implements ExportableService {
       noteEntries.unshift({
         id,
         name: name || 'New Note',
-        link: '',
       });
       return id;
     });
@@ -84,23 +80,23 @@ export class NotesService implements ExportableService {
       if (index >= 0) {
         noteEntries.splice(index, 1);
       } else {
-        throw new Error(`Editing note entry with id ${id} not found`);
+        throw new Error(`Deleting note entry with id ${id} not found`);
       }
     });
   }
 
-  private getNoteValueStorageKey(id: string): StorageKey<string> {
+  private getNoteValueStorageKey(id: string): StorageKey<NoteData> {
     return this.storage.stringKey(`note:${id}`);
   }
 
-  getCurrentNoteValue(id: string): Observable<string> {
+  getCurrentNoteValue(id: string): Observable<NoteData> {
     return this.getNoteValueStorageKey(id).get().pipe(
       map((value) => value || ''),
       take(1),
     );
   }
 
-  updateNoteValue(id: string, text: string): void {
+  updateNoteValue(id: string, text: NoteData): void {
     this.getNoteValueStorageKey(id).set(text);
   }
 

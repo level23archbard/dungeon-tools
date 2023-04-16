@@ -3,7 +3,8 @@ import { EMPTY, forkJoin, from, Observable, of, Subject, Subscription, throwErro
 import { catchError, map, switchMap } from 'rxjs/operators';
 
 import { NotesService } from '../notes/notes.service';
-import { ExportedData } from './export.model';
+import { ExportableService, ExportedData } from './export.model';
+import { SettingsService } from './settings.service';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +16,10 @@ export class ImportService implements OnDestroy {
   private fileEvent = new Subject<void>();
   private element?: HTMLInputElement;
 
-  constructor(private notes: NotesService) {
+  constructor(
+    private notes: NotesService,
+    private settings: SettingsService,
+  ) {
     this.subscriptions.add(
       this.importRequest.subscribe(() => {
         if (!this.element) {
@@ -41,6 +45,10 @@ export class ImportService implements OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+  }
+
+  private get importableServices(): ExportableService[] {
+    return [this.notes, this.settings];
   }
 
   triggerImport(): void {
@@ -94,7 +102,7 @@ export class ImportService implements OnDestroy {
   }
 
   private validateExportedData(data: ExportedData): Observable<ExportedData> {
-    return forkJoin([this.notes.validateImport(data)]).pipe(
+    return forkJoin(this.importableServices.map((s) => s.validateImport(data))).pipe(
       switchMap((results) => {
         if (results.some((result) => !result)) {
           console.error('Some validation error occurred!');
@@ -106,7 +114,7 @@ export class ImportService implements OnDestroy {
   }
 
   private importData(data: ExportedData): Observable<void> {
-    return forkJoin([this.notes.importFrom(data)]).pipe(
+    return forkJoin(this.importableServices.map((s) => s.importFrom(data))).pipe(
       map(() => {
         console.log('Import complete');
       }),

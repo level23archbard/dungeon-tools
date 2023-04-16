@@ -1,13 +1,5 @@
 <lxs-split-panels>
-  <lxs-side-listing side
-   label="Notes"
-   [entries]="noteEntries"
-   [selectedEntryId]="activeNoteEntryId"
-   (addEvent)="onClickAddNoteEntry()"
-   (selectEvent)="onClickNoteEntry($event)"
-   (moveEvent)="onClickMoveNoteEntry($event)"
-   (helpEvent)="onClickAboutNotes()"
-  ></lxs-side-listing>
+  <lxs-notes-list side [activeNoteEntryId]="activeNoteEntryId"></lxs-notes-list>
 
   <ng-container *ngIf="activeNoteEntryId; else noNotes">
     <div class="header">
@@ -39,6 +31,6 @@
   </ng-container>
 
   <ng-template #noNotes>
-    <lxs-note-help></lxs-note-help>
+    <lxs-notes-help></lxs-notes-help>
   </ng-template>
 </lxs-split-panels>

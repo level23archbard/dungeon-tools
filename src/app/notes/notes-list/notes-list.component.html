@@ -1,0 +1,10 @@
+<lxs-side-listing side
+  label="Notes"
+  [entries]="noteEntries"
+  [selectedEntryId]="activeNoteEntryId"
+  (addEvent)="onClickAddNoteEntry()"
+  (selectEvent)="onClickNoteEntry($event)"
+  (moveEvent)="onClickMoveNoteEntry($event)"
+  [showHelp]="true"
+  (helpEvent)="onClickAboutNotes()"
+></lxs-side-listing>
