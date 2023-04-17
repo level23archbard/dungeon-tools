@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
 
@@ -15,6 +15,7 @@ import { MapsService } from '../maps.service';
 export class MapsListComponent implements OnInit, OnDestroy {
 
   @Input() activeEntryId?: string;
+  @Output() selectedActiveEntry = new EventEmitter<void>();
 
   private subscriptions = new Subscription();
 
@@ -47,6 +48,8 @@ export class MapsListComponent implements OnInit, OnDestroy {
     if (entryId !== this.activeEntryId) {
       this.settings.setSetting('mapsSelectedId', entryId);
       this.router.navigate(['maps', entryId]);
+    } else {
+      this.selectedActiveEntry.emit();
     }
   }
 

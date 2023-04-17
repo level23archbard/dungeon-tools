@@ -9,10 +9,10 @@ export interface MapData {
   gridOffsetX: number;
   gridOffsetY: number;
   tiles: Record<string, MapTileData>;
+  note?: string;
+  backgroundImage?: string;
 }
 
-export interface MapTileData {
-
-}
+export type MapTileData = unknown;
 
 export type MapDirection = 'top' | 'right' | 'bottom' | 'left';

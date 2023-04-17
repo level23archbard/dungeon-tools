@@ -1,4 +1,43 @@
+@import 'src/styles/buttons';
+
+.rename-field {
+  display: inline-block;
+  width: 100%;
+
+  input {
+    margin: 0 0.5rem;
+    max-width: calc(100% - 16px);
+  }
+}
+
+.section-header {
+  margin: 0;
+  padding: 0 0.5rem;
+}
+
+.note {
+  padding-left: 0.5rem;
+}
+
+.content {
+  padding: 0 0.5rem;
+
+  .icon {
+    @include button-icon(2rem, 2rem);
+  }
+}
+
 .grid-options {
+
+  &-section {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    margin: 0.5rem;
+    border-top: 0.0625rem solid $text;
+    padding-top: 0.5rem;
+  }
+
   &-middle {
     display: flex;
     align-items: center;
@@ -15,4 +54,17 @@
   &-right {
     flex: 0;
   }
+}
+
+.image-field {
+  display: inline-block;
+  width: 100%;
+
+  input {
+    width: calc(100% - 8px);
+  }
+}
+
+.check-image {
+  width: 100%;
 }

@@ -34,7 +34,12 @@ export class MapDisplayComponent implements OnChanges, AfterViewInit {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.mapData) {
-      this.updateMapGrid();
+      const change = changes.mapData;
+      if (this.changeShouldRecreateGrid(change.currentValue, change.previousValue)) {
+        this.updateMapGrid();
+      } else if (this.changeShouldRenderGrid(change.currentValue, change.previousValue)) {
+        this.renderGrid();
+      }
     }
   }
 
@@ -42,6 +47,19 @@ export class MapDisplayComponent implements OnChanges, AfterViewInit {
     this.setupSvg();
     this.renderGrid();
     this.didInit = true;
+  }
+
+  private changeShouldRecreateGrid(newData: MapData, previousData?: MapData): boolean {
+    return !previousData
+    || newData.gridColumns !== previousData.gridColumns
+    || newData.gridRows !== previousData.gridRows
+    || newData.gridOffsetX !== previousData.gridOffsetX
+    || newData.gridOffsetY !== previousData.gridOffsetY;
+  }
+
+  private changeShouldRenderGrid(newData: MapData, previousData?: MapData): boolean {
+    return this.didInit && (!previousData
+      || newData.backgroundImage !== previousData.backgroundImage);
   }
 
   private updateMapGrid(): void {

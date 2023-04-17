@@ -1,32 +1,78 @@
-<div>{{ mapData.gridColumns }} Columns</div>
-<div>{{ mapData.gridRows }} Rows</div>
+<lxs-side-header
+  [leftAction]="isRenaming ? undefined : backAction"
+  [rightActions]="isRenaming ? [renameCancelAction, renameSaveAction] : [renameAction]"
+>
+  <ng-container *ngIf="isRenaming; else notRenaming">
+    <label class="rename-field">
+      Rename:
+      <input type="text" [formControl]="renamingControl"/>
+    </label>
+  </ng-container>
+  <ng-template #notRenaming>{{ mapEntry.name }}</ng-template>
+</lxs-side-header>
 
-<div (click)="clickAdd.emit('top')">Row to Top</div>
-<div class="grid-options-middle">
-  <div class="grid-options-left">
-    <div (click)="clickAdd.emit('left')">Column to Left</div>
+<h2 class="section-header">Note</h2>
+<lxs-inscription-editor class="note"
+  [value]="mapData.note"
+  (valueChanged)="onMapNoteChanged($event)"
+  [linkEvaluator]="linker"
+  linkPreferredSource="maps"
+></lxs-inscription-editor>
+
+<h2 class="section-header">Configure</h2>
+<div class="content">
+  <div>{{ mapData.gridColumns }} Columns x {{ mapData.gridRows }} Rows</div>
+  <div class="grid-options-section">
+    <div class="icon" (click)="clickAdd.emit('top')">
+      <mat-icon svgIcon="collapse"></mat-icon>
+    </div>
+    <div class="grid-options-middle">
+      <div class="grid-options-left">
+        <div class="icon" (click)="clickAdd.emit('left')">
+          <mat-icon svgIcon="back"></mat-icon>
+        </div>
+      </div>
+      <div class="grid-options-center">
+        Add Tiles
+      </div>
+      <div class="grid-options-right">
+        <div class="icon" (click)="clickAdd.emit('right')">
+          <mat-icon svgIcon="forward"></mat-icon>
+        </div>
+      </div>
+    </div>
+    <div class="icon" (click)="clickAdd.emit('bottom')">
+      <mat-icon svgIcon="expand"></mat-icon>
+    </div>
   </div>
-  <div class="grid-options-center">
-    Add Tiles
+  <div class="grid-options-section">
+    <div class="icon" (click)="clickRemove.emit('top')">
+      <mat-icon svgIcon="expand"></mat-icon>
+    </div>
+    <div class="grid-options-middle">
+      <div class="grid-options-left">
+        <div class="icon" (click)="clickRemove.emit('left')">
+          <mat-icon svgIcon="forward"></mat-icon>
+        </div>
+      </div>
+      <div class="grid-options-center">
+        Remove Tiles
+      </div>
+      <div class="grid-options-right">
+        <div class="icon" (click)="clickRemove.emit('right')">
+          <mat-icon svgIcon="back"></mat-icon>
+        </div>
+      </div>
+    </div>
+    <div class="icon" (click)="clickRemove.emit('bottom')">
+      <mat-icon svgIcon="collapse"></mat-icon>
+    </div>
   </div>
-  <div class="grid-options-right">
-    <div (click)="clickAdd.emit('right')">Column to Right</div>
-  </div>
+  <label class="image-field">
+    Background Image:
+    <input type="text" placeholder="Enter a URL to an image" [formControl]="backgroundImageControl"/>
+  </label>
+  <div class="icon" (click)="onClickCheckImage()"><mat-icon svgIcon="check"></mat-icon></div>
+  <img *ngIf="imageCheckUrl" [src]="imageCheckUrl" class="check-image" (load)="onCheckImageLoadSuccess()" (error)="onCheckImageLoadError()"/>
+  <p *ngIf="imageCheckStatus">{{ imageCheckStatus }}</p>
 </div>
-<div (click)="clickAdd.emit('bottom')">Row to Bottom</div>
-
-<div (click)="clickRemove.emit('top')">Row From Top</div>
-<div class="grid-options-middle">
-  <div class="grid-options-left">
-    <div (click)="clickRemove.emit('left')">Column from Left</div>
-  </div>
-  <div class="grid-options-center">
-    Remove Tiles
-  </div>
-  <div class="grid-options-right">
-    <div (click)="clickRemove.emit('right')">Column from Right</div>
-  </div>
-</div>
-<div (click)="clickRemove.emit('bottom')">Row from Bottom</div>
-
-<lxs-inscription-editor></lxs-inscription-editor>

@@ -1,3 +1,11 @@
 <div class="container">
-  <div #map class="map" (click)="onClickGrid($event)" [ngStyle]="{ 'width.px': mapWidth, 'height.px': mapHeight }"></div>
+  <div #map class="map"
+    [ngStyle]="{ 
+      'width.px': mapWidth,
+      'height.px': mapHeight,
+      'background-image': (mapData.backgroundImage ? 'url(\'' + mapData.backgroundImage + '\')' : undefined),
+      'background-size': (mapData.backgroundImage ? '100% 100%' : undefined)
+    }"
+    (click)="onClickGrid($event)"
+  ></div>
 </div>

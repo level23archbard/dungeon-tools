@@ -1,0 +1,24 @@
+@import 'src/styles/buttons';
+
+.header {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 0.0625rem solid $side-menu-border;
+  height: 3rem;
+  background-color: $side-menu-header;
+  color: $text;
+}
+
+.title {
+  flex: 1 1;
+  min-width: 0;
+  text-align: center;
+  color: $text;
+}
+
+.button {
+  flex: none;
+  @include button-icon(2rem, 2rem);
+}

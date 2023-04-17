@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { StorageKey, StorageService } from '@level23archbard/storage-service';
-import { map, Observable } from 'rxjs';
+import { distinctUntilChanged, map, Observable } from 'rxjs';
 
 import { IdService } from '../id.service';
 import { MapData, MapEntry } from './maps.model';
@@ -29,7 +29,14 @@ export class MapsService {
   }
 
   getMapEntry(id: string): Observable<MapEntry | undefined> {
-    return this.mapEntriesList.pipe(map((entries) => entries.find((entry) => entry.id === id)));
+    return this.mapEntriesList.pipe(
+      map((entries) => entries.find((entry) => entry.id === id)),
+      distinctUntilChanged((previous, current) => this.mapEntriesAreSame(previous, current)),
+    );
+  }
+
+  private mapEntriesAreSame(lhs?: MapEntry, rhs?: MapEntry): boolean {
+    return lhs?.id === rhs?.id && lhs?.name === rhs?.name;
   }
 
   addMapEntry(name?: string): string {

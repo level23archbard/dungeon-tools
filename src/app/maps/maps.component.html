@@ -1,9 +1,13 @@
 <lxs-split-panels>
   <ng-container side>
-    <lxs-maps-list *ngIf="state.state === 'list'"></lxs-maps-list>
-    <lxs-map-panel *ngIf="state.state === 'map'"
+    <lxs-maps-list *ngIf="state.view === 'list'"
+      [activeEntryId]="state.mapEntry?.id"
+      (selectedActiveEntry)="onSelectedSameMapEntry()"
+    ></lxs-maps-list>
+    <lxs-map-panel *ngIf="state.view === 'map'"
       [mapEntry]="state.mapEntry"
       [mapData]="state.mapData"
+      (clickBack)="onBackFromMap()"
       (clickAdd)="onAdd($event)"
       (clickRemove)="onRemove($event)"
     ></lxs-map-panel>

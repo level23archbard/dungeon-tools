@@ -2,14 +2,7 @@ import { Component, EventEmitter, Input, OnChanges, OnDestroy, Output, SimpleCha
 import { from, Observable, of, Subscription } from 'rxjs';
 import { map, mergeMap, toArray } from 'rxjs/operators';
 
-export interface InscriptionLink {
-  text: string;
-  ref: string[];
-}
-
-export interface InscriptionLinkEvaluator {
-  evaluate(tag: string): Observable<InscriptionLink | null>;
-}
+import { InscriptionLinkEvaluator } from '../inscription.model';
 
 interface InscriptionLineParts {
   linkPart?: string;
@@ -35,6 +28,7 @@ export class InscriptionViewerComponent implements OnChanges, OnDestroy {
 
   @Input() value?: string;
   @Input() linkEvaluator?: InscriptionLinkEvaluator;
+  @Input() linkPreferredSource?: string;
   @Output() selectedInvalidLink = new EventEmitter<string>();
   elements?: InscriptionElements;
   private subscriptions = new Subscription();
@@ -52,7 +46,7 @@ export class InscriptionViewerComponent implements OnChanges, OnDestroy {
   }
 
   private makeInscriptionLink(expression: string): Observable<Pick<InscriptionLineParts, 'linkPart' | 'linkInvalid' | 'linkRef'>> {
-    return (this.linkEvaluator?.evaluate(expression) || of(null)).pipe(map((link) => ({
+    return (this.linkEvaluator?.evaluate(expression, this.linkPreferredSource) || of(null)).pipe(map((link) => ({
       linkPart: link?.text || expression,
       linkInvalid: !link,
       linkRef: link?.ref,

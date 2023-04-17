@@ -24,13 +24,13 @@ export class SideListingComponent {
   @Output() selectEvent = new EventEmitter<string>();
   @Output() moveEvent = new EventEmitter<{ from: number; to: number }>();
 
-  onClickAdd(): void {
+  onClickAdd = (): void => {
     this.addEvent.emit();
-  }
+  };
 
-  onClickHelp(): void {
+  onClickHelp = (): void => {
     this.helpEvent.emit();
-  }
+  };
 
   onClickEntry(entry: SideListingEntry): void {
     this.selectEvent.emit(entry.id);

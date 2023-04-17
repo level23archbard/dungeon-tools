@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
 import { IconsModule } from 'src/icons/icons.module';
+import { SideHeaderModule } from 'src/templates/side-header/side-header.module';
 
 import { SideListingComponent } from './side-listing.component';
 
@@ -12,6 +13,7 @@ import { SideListingComponent } from './side-listing.component';
     CommonModule,
     DragDropModule,
     IconsModule,
+    SideHeaderModule,
   ],
   exports: [SideListingComponent],
 })

@@ -8,10 +8,13 @@ import { MapsService } from './maps.service';
 
 interface MapsComponentListState {
   state: 'list';
+  view: 'list';
+  mapEntry?: undefined;
 }
 
 interface MapsComponentSelectedState {
   state: 'map';
+  view: 'map' | 'list';
   mapEntry: MapEntry;
   mapData: MapData;
 }
@@ -29,6 +32,7 @@ export class MapsComponent implements OnInit {
 
   state: MapsComponentState = {
     state: 'list',
+    view: 'list',
   };
 
   constructor(
@@ -45,7 +49,7 @@ export class MapsComponent implements OnInit {
         if (id) {
           return combineLatest([of(id), this.maps.getMapEntry(id), this.maps.getMapData(id)]);
         } else {
-          this.state = { state: 'list' };
+          this.state = { state: 'list', view: 'list' };
           return this.redirectToRecent();
         }
       }),
@@ -53,6 +57,7 @@ export class MapsComponent implements OnInit {
       if (mapEntry) {
         this.state = {
           state: 'map',
+          view: 'map',
           mapEntry,
           mapData,
         };
@@ -73,9 +78,19 @@ export class MapsComponent implements OnInit {
     }));
   }
 
+  onBackFromMap(): void {
+    this.state.view = 'list';
+  }
+
+  onSelectedSameMapEntry(): void {
+    if (this.state.state === 'map') {
+      this.state.view = 'map';
+    }
+  }
+
   onAdd(direction: MapDirection): void {
     if (this.state.state === 'list') { return; }
-    const mapData = this.state.mapData;
+    const mapData = { ...this.state.mapData };
     let key: 'gridColumns' | 'gridRows';
     let offsetKey: 'gridOffsetX' | 'gridOffsetY' | undefined;
     switch (direction) {
@@ -95,7 +110,7 @@ export class MapsComponent implements OnInit {
 
   onRemove(direction: MapDirection): void {
     if (this.state.state === 'list') { return; }
-    const mapData = this.state.mapData;
+    const mapData = { ...this.state.mapData };
     let key: 'gridColumns' | 'gridRows';
     let offsetKey: 'gridOffsetX' | 'gridOffsetY' | undefined;
     switch (direction) {

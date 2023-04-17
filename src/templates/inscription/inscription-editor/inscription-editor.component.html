@@ -9,5 +9,5 @@
   <textarea cdkTextareaAutosize cdkAutosizeMinRows="8" cdkAutosizeMaxRows="100" class="section is-editing" [formControl]="valueControl"></textarea>
 </ng-template>
 <ng-template #viewer>
-  <lxs-inscription-viewer class="section" [value]="value" [linkEvaluator]="linkEvaluator" (selectedInvalidLink)="selectedInvalidLink.emit($event)"></lxs-inscription-viewer>
+  <lxs-inscription-viewer class="section" [value]="value" [linkEvaluator]="linkEvaluator" [linkPreferredSource]="linkPreferredSource" (selectedInvalidLink)="selectedInvalidLink.emit($event)"></lxs-inscription-viewer>
 </ng-template>

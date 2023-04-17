@@ -3,7 +3,7 @@ import { UntypedFormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 
-import { InscriptionLinkEvaluator } from '../inscription-viewer/inscription-viewer.component';
+import { InscriptionLinkEvaluator } from '../inscription.model';
 
 @Component({
   selector: 'lxs-inscription-editor',
@@ -15,6 +15,7 @@ export class InscriptionEditorComponent implements OnChanges, OnInit, OnDestroy 
   @Input() value?: string;
   @Output() valueChanged = new EventEmitter<string>();
   @Input() linkEvaluator?: InscriptionLinkEvaluator;
+  @Input() linkPreferredSource?: string;
   @Output() selectedInvalidLink = new EventEmitter<string>();
   valueControl = new UntypedFormControl('');
   isEditing = false;
