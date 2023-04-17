@@ -33,6 +33,9 @@
               "src/styles.scss"
             ],
             "scripts": [],
+            "allowedCommonJsDependencies": [
+              "semver"
+            ],
             "vendorChunk": true,
             "extractLicenses": false,
             "buildOptimizer": false,
