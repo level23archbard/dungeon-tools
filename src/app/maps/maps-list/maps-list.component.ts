@@ -56,4 +56,9 @@ export class MapsListComponent implements OnInit, OnDestroy {
   onMove(movement: { from: number; to: number }): void {
     this.maps.moveMapEntry(movement.from, movement.to);
   }
+
+  onClickAbout(): void {
+    this.settings.setSetting('mapsSelectedId', null);
+    this.router.navigate(['maps']);
+  }
 }

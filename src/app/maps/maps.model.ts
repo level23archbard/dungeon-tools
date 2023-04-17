@@ -13,6 +13,21 @@ export interface MapData {
   backgroundImage?: string;
 }
 
-export type MapTileData = unknown;
+export interface MapTileData {
+  col: number;
+  row: number;
+  note?: string;
+}
 
-export type MapDirection = 'top' | 'right' | 'bottom' | 'left';
+export const isTileIdValid = (id: string): boolean => {
+  const parts = id.split('_');
+  return parts.length === 2 && Number.isInteger(Number(parts[0])) && Number.isInteger(Number(parts[1]));
+};
+
+export const tileIdToCoordinates = (id: string): { row: number; col: number } => {
+  const parts = id.split('_');
+  return {
+    col: Number(parts[0]),
+    row: Number(parts[1]),
+  };
+};

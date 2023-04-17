@@ -3,5 +3,35 @@
   Use the Maps Tool to plan locations and regions in a world!
 </p>
 <p>
-  Help needs more content.
+  Click the plus button on the left bar to create a new map. The editor visualizes the map as a hex grid.
+  In the map's details panel, use edit button in the header bar to rename the map, and use the Note section
+  to describe the map. Map notes support the same markdown as the Notes Tool, more details can be found
+  <a [routerLink]="['notes', 'help']" [relativeTo]="null">here</a>.
+  The configure section adjusts the map, by adding or removing rows and columns and
+  by setting a background image for the entire map.
+</p>
+<p>
+  Click anywhere in the grid of the map to select that tile. Each tile supports adding its own notes as well,
+  along with the same markdown. However, tiles cannot be linked to from other notes.
+</p>
+<p>
+  Some sample ideas for using this tool:
+</p>
+<ul>
+  <li>
+    Prepare for a "hex crawl" by loading a world map as a background image, then fill the notes for the different
+    tiles with descriptions of terrain or climate, or with different locations, dungeons, and random encounters
+    that may be visited.
+  </li>
+  <li>
+    Plan a dungeon encounter by loading a dungeon map as a background image, use the map's notes to describe the dungeon,
+    rooms, and random or time-based encounters, and use the tile's notes to describe doors, traps, monsters, treasure,
+    or anything else that fills the tile.
+  </li>
+  <li>
+    Utilize the 2D graph for relational or positional note-taking. Your imagination is the limit!
+  </li>
+</ul>
+<p>
+  Open this page again by the question mark button on the left bar.
 </p>

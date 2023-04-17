@@ -4,8 +4,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatestWith, NEVER, Observable, of, Subscription, switchMap } from 'rxjs';
 
+import { ConfirmDialogComponent } from 'src/templates/confirm-dialog/confirm-dialog.component';
+
 import { SettingsService } from '../settings/settings.service';
-import { NoteDeletePopupComponent } from './note-delete-popup/note-delete-popup.component';
 import { NotesService } from './notes.service';
 
 @Component({
@@ -35,8 +36,12 @@ export class NotesComponent implements OnInit, OnDestroy {
       switchMap((params) => {
         const id = params.get('id');
         this.activeNoteEntryId = id ?? undefined;
-        if (id) {
+        if (id && id !== 'help') {
           return this.notes.getNoteEntry(id).pipe(combineLatestWith(of(id)));
+        } else if (id === 'help') {
+          this.settings.setSetting('notesSelectedId', null);
+          this.router.navigate(['notes']);
+          return NEVER;
         } else {
           return this.redirectToRecent();
         }
@@ -90,13 +95,14 @@ export class NotesComponent implements OnInit, OnDestroy {
 
   onClickDelete(): void {
     this.subscriptions.add(
-      this.dialog.open(NoteDeletePopupComponent).afterClosed().subscribe((confirm) => {
-        if (confirm) {
-          this.isDeleting = true;
-          this.settings.setSetting('notesSelectedId', null);
-          this.notes.deleteNoteEntry(this.activeNoteEntryId || '');
-        }
-      }),
+      this.dialog.open(ConfirmDialogComponent, { data: { message: 'Are you sure you want to delete this note?' }})
+        .afterClosed().subscribe((confirm) => {
+          if (confirm) {
+            this.isDeleting = true;
+            this.settings.setSetting('notesSelectedId', null);
+            this.notes.deleteNoteEntry(this.activeNoteEntryId || '');
+          }
+        }),
     );
   }
 }

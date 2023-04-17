@@ -8,9 +8,13 @@
       [mapEntry]="state.mapEntry"
       [mapData]="state.mapData"
       (clickBack)="onBackFromMap()"
-      (clickAdd)="onAdd($event)"
-      (clickRemove)="onRemove($event)"
     ></lxs-map-panel>
+    <lxs-map-tile-panel *ngIf="state.view === 'tile'"
+      [mapEntry]="state.mapEntry"
+      [mapData]="state.mapData"
+      [tileId]="state.tileId"
+      (clickBack)="onBackFromTile()"
+    ></lxs-map-tile-panel>
   </ng-container>
 
   <lxs-maps-help *ngIf="state.state === 'list'"></lxs-maps-help>

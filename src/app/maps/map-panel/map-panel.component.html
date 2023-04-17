@@ -23,12 +23,12 @@
 <div class="content">
   <div>{{ mapData.gridColumns }} Columns x {{ mapData.gridRows }} Rows</div>
   <div class="grid-options-section">
-    <div class="icon" (click)="clickAdd.emit('top')">
+    <div class="icon" (click)="onAdd('top')">
       <mat-icon svgIcon="collapse"></mat-icon>
     </div>
     <div class="grid-options-middle">
       <div class="grid-options-left">
-        <div class="icon" (click)="clickAdd.emit('left')">
+        <div class="icon" (click)="onAdd('left')">
           <mat-icon svgIcon="back"></mat-icon>
         </div>
       </div>
@@ -36,22 +36,22 @@
         Add Tiles
       </div>
       <div class="grid-options-right">
-        <div class="icon" (click)="clickAdd.emit('right')">
+        <div class="icon" (click)="onAdd('right')">
           <mat-icon svgIcon="forward"></mat-icon>
         </div>
       </div>
     </div>
-    <div class="icon" (click)="clickAdd.emit('bottom')">
+    <div class="icon" (click)="onAdd('bottom')">
       <mat-icon svgIcon="expand"></mat-icon>
     </div>
   </div>
   <div class="grid-options-section">
-    <div class="icon" (click)="clickRemove.emit('top')">
+    <div class="icon" (click)="onRemove('top')">
       <mat-icon svgIcon="expand"></mat-icon>
     </div>
     <div class="grid-options-middle">
       <div class="grid-options-left">
-        <div class="icon" (click)="clickRemove.emit('left')">
+        <div class="icon" (click)="onRemove('left')">
           <mat-icon svgIcon="forward"></mat-icon>
         </div>
       </div>
@@ -59,12 +59,12 @@
         Remove Tiles
       </div>
       <div class="grid-options-right">
-        <div class="icon" (click)="clickRemove.emit('right')">
+        <div class="icon" (click)="onRemove('right')">
           <mat-icon svgIcon="back"></mat-icon>
         </div>
       </div>
     </div>
-    <div class="icon" (click)="clickRemove.emit('bottom')">
+    <div class="icon" (click)="onRemove('bottom')">
       <mat-icon svgIcon="collapse"></mat-icon>
     </div>
   </div>

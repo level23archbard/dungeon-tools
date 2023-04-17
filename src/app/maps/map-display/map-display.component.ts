@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { Defs, Shape, Svg, SVG } from '@svgdotjs/svg.js';
 import { defineHex, Grid, hexToPoint, rectangle } from 'honeycomb-grid';
 
@@ -31,6 +32,8 @@ export class MapDisplayComponent implements OnChanges, AfterViewInit {
   private didInit = false;
   private svg!: Svg;
   private svgHexBorder!: Shape;
+
+  constructor(private router: Router) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.mapData) {
@@ -126,6 +129,8 @@ export class MapDisplayComponent implements OnChanges, AfterViewInit {
       x += 0.5 * hexTemplate.width;
     }
     const hex = this.grid.pointToHex({ x, y }, { allowOutside: false });
-    console.log(hex, 'Display:', hex?.col, hex?.row);
+    if (hex) {
+      this.router.navigate(['maps', this.mapEntry.id, `${hex.col}_${hex.row}`]);
+    }
   }
 }

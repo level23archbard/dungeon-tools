@@ -47,7 +47,6 @@ export class LinkerService implements InscriptionLinkEvaluator {
   }
 
   private checkPreferredSource(entries: { [s: string]: Entries}, tag: string, preferredSource?: string): Link | null {
-    console.log('Checking preferred', preferredSource);
     switch (preferredSource) {
     case 'notes': case 'maps':
       return this.checkEntries(entries[preferredSource], tag, preferredSource);
