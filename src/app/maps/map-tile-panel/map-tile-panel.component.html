@@ -1,0 +1,9 @@
+<lxs-side-header [leftAction]="backAction">Tile {{ tileData.col }}, {{ tileData.row }}</lxs-side-header>
+
+<h2 class="section-header">Note</h2>
+<lxs-inscription-editor class="note"
+  [value]="tileData.note"
+  (valueChanged)="onNoteChanged($event)"
+  [linkEvaluator]="linker"
+  linkPreferredSource="maps"
+></lxs-inscription-editor>
