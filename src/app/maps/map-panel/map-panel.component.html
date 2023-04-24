@@ -1,14 +1,21 @@
-<lxs-side-header
-  [leftAction]="isRenaming ? undefined : backAction"
-  [rightActions]="isRenaming ? [renameCancelAction, renameSaveAction] : [renameAction]"
->
+<lxs-side-header>
   <ng-container *ngIf="isRenaming; else notRenaming">
-    <label class="rename-field">
-      Rename:
-      <input type="text" [formControl]="renamingControl"/>
-    </label>
+    <ng-template lxsSideHeaderLabel>
+      <label class="rename-field">
+        Rename:
+        <input type="text" [formControl]="renamingControl"/>
+      </label>
+    </ng-template>
+    <lxs-action lxsSideHeaderRight icon="close" label="Cancel" (action)="onRenameCancel()"></lxs-action>
+    <lxs-action lxsSideHeaderRight icon="check" label="Confirm" (action)="onRenameSave()"></lxs-action>
   </ng-container>
-  <ng-template #notRenaming>{{ mapEntry.name }}</ng-template>
+  <ng-template #notRenaming>
+    <lxs-action lxsSideHeaderLeft icon="back" label="Maps" (action)="clickBack.emit()"></lxs-action>
+    <ng-template lxsSideHeaderLabel>
+      {{ mapEntry.name }}
+    </ng-template>
+    <lxs-action lxsSideHeaderRight icon="quill" label="Rename" (action)="onRename()"></lxs-action>
+  </ng-template>
 </lxs-side-header>
 
 <h2 class="section-header">Note</h2>

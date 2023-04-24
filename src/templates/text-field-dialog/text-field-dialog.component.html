@@ -1,0 +1,12 @@
+<label>
+  <h3 class="title">{{ data.message }}</h3>
+  <input type="text" [formControl]="renamingControl" />
+</label>
+<div class="buttons">
+  <div class="button" (click)="onClickCancel()">
+    Cancel
+  </div>
+  <div class="button" (click)="onClickSubmit()">
+    Submit
+  </div>
+</div>

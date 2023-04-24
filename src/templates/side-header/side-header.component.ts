@@ -1,9 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, ContentChild, ContentChildren, QueryList } from '@angular/core';
 
-export interface SideHeaderAction {
-  icon: string;
-  action: () => void;
-}
+import {
+  SideHeaderLabelDirective,
+  SideHeaderLeftDirective,
+  SideHeaderRightDirective,
+  SideHeaderToolbarDirective,
+} from './side-header.directive';
 
 @Component({
   selector: 'lxs-side-header',
@@ -12,7 +14,8 @@ export interface SideHeaderAction {
 })
 export class SideHeaderComponent {
 
-  @Input() leftAction?: SideHeaderAction;
-  @Input() rightAction?: SideHeaderAction;
-  @Input() rightActions?: SideHeaderAction[];
+  @ContentChild(SideHeaderLabelDirective) label?: SideHeaderLabelDirective;
+  @ContentChildren(SideHeaderLeftDirective) leftActions!: QueryList<SideHeaderLeftDirective>;
+  @ContentChildren(SideHeaderRightDirective) rightActions!: QueryList<SideHeaderRightDirective>;
+  @ContentChildren(SideHeaderToolbarDirective) toolbarActions!: QueryList<SideHeaderToolbarDirective>;
 }

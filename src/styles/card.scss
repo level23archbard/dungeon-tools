@@ -1,4 +1,4 @@
-@import 'src/styles/colors';
+@use 'src/styles/colors' as *;
 
 @mixin card() {
   margin: 1rem;

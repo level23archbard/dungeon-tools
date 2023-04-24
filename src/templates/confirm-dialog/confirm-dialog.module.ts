@@ -12,6 +12,5 @@ import { ConfirmDialogComponent } from './confirm-dialog.component';
   declarations: [
     ConfirmDialogComponent,
   ],
-  exports: [ConfirmDialogComponent, MatDialogModule],
 })
 export class ConfirmDialogModule { }

@@ -32,6 +32,7 @@ export class IconsModule {
     this.addIcon('handle');
     this.addIcon('quill');
     this.addIcon('question');
+    this.addIcon('spellbook');
   }
 
   private addIcon(iconName: string) {

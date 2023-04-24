@@ -8,6 +8,7 @@ import { ConfirmDialogModule } from 'src/templates/confirm-dialog/confirm-dialog
 import { InscriptionModule } from 'src/templates/inscription/inscription.module';
 import { SideListingModule } from 'src/templates/side-listing/side-listing.module';
 import { SplitPanelsModule } from 'src/templates/split-panels/split-panels.module';
+import { TextFieldDialogModule } from 'src/templates/text-field-dialog/text-field-dialog.module';
 
 import { NoteEditorComponent } from './note-editor/note-editor.component';
 import { NotesHelpComponent } from './notes-help/notes-help.component';
@@ -27,6 +28,7 @@ import { NotesComponent } from './notes.component';
     ]),
     SideListingModule,
     SplitPanelsModule,
+    TextFieldDialogModule,
   ],
   declarations: [
     NoteEditorComponent,

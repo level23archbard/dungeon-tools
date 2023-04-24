@@ -39,9 +39,8 @@ export class NoteEditorComponent implements OnChanges, OnInit, OnDestroy {
       }),
     );
     this.subscriptions.add(
-      this.selectedInvalidLink.pipe(
-        switchMap((link) => this.notes.addNoteEntry(link)),
-      ).subscribe((entryId) => {
+      this.selectedInvalidLink.subscribe((link) => {
+        const entryId = this.notes.addNoteEntry([], link);
         this.settings.setSetting('notesSelectedId', entryId);
         this.router.navigate(['notes', entryId]);
       }),

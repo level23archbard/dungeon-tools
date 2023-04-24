@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 
 import { LinkerService } from 'src/app/linker.service';
-import { SideHeaderAction } from 'src/templates/side-header/side-header.component';
 
 import { MapData, MapEntry, MapTileData, tileIdToCoordinates } from '../maps.model';
 import { MapsService } from '../maps.service';
@@ -32,13 +31,6 @@ export class MapTilePanelComponent implements OnChanges {
   ngOnChanges(_changes: SimpleChanges): void {
     this.tileData = this.mapData.tiles[this.tileId] || getDefaultTileData(this.tileId);
   }
-
-  backAction: SideHeaderAction = {
-    icon: 'back',
-    action: () => {
-      this.clickBack.emit();
-    },
-  };
 
   onNoteChanged(newValue: string): void {
     this.tileData.note = newValue;

@@ -2,8 +2,8 @@
 @use '@angular/material' as mat;
 // For more information: https://material.angular.io/guide/theming
 // Plus imports for other components in your app.
-@import 'src/styles/colors';
-@import 'src/styles/card';
+@use 'src/styles/colors' as *;
+@use 'src/styles/card' as *;
 
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
@@ -52,4 +52,11 @@ main {
     border-radius: 0;
     box-shadow: 0 0 1.5rem $overlay-shadow;
   }
+}
+
+.lxs-tooltip {
+  margin: 0 !important;
+  padding: 0.25rem 0.5rem !important;
+  background-color: $tooltip;
+  font-size: 13px;
 }

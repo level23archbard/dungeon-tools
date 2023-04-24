@@ -1,0 +1,86 @@
+@use 'src/styles/colors' as *;
+@use 'src/styles/buttons';
+@use 'src/styles/card' as *;
+
+.side {
+  &-entry {
+    padding: 0 0.5rem;
+    height: 3rem;
+    color: $text;
+
+    &:hover {
+      background-color: $background;
+      cursor: pointer;
+    }
+
+    &-active {
+      background-color: $side-menu-selected;
+      color: $bar-primary;
+
+      &:hover {
+        background-color: $side-menu-selected;
+        color: $bar-primary;
+      }
+
+      .side-entry-mover-button > mat-icon {
+        color: $bar-primary;
+      }
+
+      .side-entry-mover-button:hover > mat-icon {
+        color: $bar-primary-highlight;
+      }
+
+      .side-entry-selector > mat-icon {
+        color: $bar-primary;
+      }
+    }
+
+    &-content {
+      display: flex;
+      flex-flow: row;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 0.0625rem solid $side-menu-border;
+      height: calc(100% - 0.0625rem);
+    }
+
+    &-mover-button {
+      margin-right: 0.5rem;
+      @include buttons.button-icon(2rem, 2rem);
+    }
+
+    &-label {
+      flex: 1;
+    }
+
+    &-selector {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      > mat-icon {
+        width: 1rem;
+        height: 1rem;
+        line-height: 1rem;
+        color: $text;
+      }
+    }
+
+    &-drag-preview {
+      @include card();
+      width: 12rem;
+    }
+
+    &-drag-placeholder {
+      height: 3rem;
+      background-color: $card-shadow;
+    }
+  }
+
+  &-no-content {
+    height: 3rem;
+    line-height: 3rem;
+    text-align: center;
+    color: $text;
+  }
+}

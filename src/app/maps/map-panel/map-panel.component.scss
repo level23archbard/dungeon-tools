@@ -1,4 +1,5 @@
-@import 'src/styles/buttons';
+@use 'src/styles/colors' as *;
+@use 'src/styles/buttons' as *;
 
 .rename-field {
   display: inline-block;

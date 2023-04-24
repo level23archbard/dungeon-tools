@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SideListingComponent } from './side-listing.component';
+import { SideListComponent } from './side-list.component';
 
 describe('SideListingComponent', () => {
-  let component: SideListingComponent;
-  let fixture: ComponentFixture<SideListingComponent>;
+  let component: SideListComponent;
+  let fixture: ComponentFixture<SideListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SideListingComponent ],
+      declarations: [ SideListComponent ],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SideListingComponent);
+    fixture = TestBed.createComponent(SideListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

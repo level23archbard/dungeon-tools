@@ -1,0 +1,40 @@
+<lxs-side-header>
+  <lxs-action lxsSideHeaderLeft *ngIf="currentHierarchy.length === 0 && showHelp" icon="question" label="Help" (action)="helpEvent.emit()"></lxs-action>
+  <lxs-action lxsSideHeaderLeft *ngIf="currentHierarchy.length > 0" icon="back" label="Back" (action)="onBack()"></lxs-action>
+  <ng-template lxsSideHeaderLabel>
+    {{ currentGroup ? currentGroup.name : label }}
+  </ng-template>
+  <lxs-action lxsSideHeaderRight icon="add" label="Add" (action)="addEvent.emit({ type: 'entry', hierarchy: currentHierarchy })"></lxs-action>
+  <lxs-action lxsSideHeaderToolbar *ngIf="currentGroup" icon="delete" label="Delete Group" (action)="deleteGroupEvent.emit(currentGroup)"></lxs-action>
+  <lxs-action lxsSideHeaderToolbar *ngIf="currentGroup" icon="quill" label="Rename Group" (action)="renameGroupEvent.emit(currentGroup)"></lxs-action>
+  <lxs-action lxsSideHeaderToolbar icon="add" label="Add Group" (action)="addEvent.emit({ type: 'group', hierarchy: currentHierarchy })"></lxs-action>
+</lxs-side-header>
+<div *ngIf="currentTree" class="side-tree" cdkDropList (cdkDropListDropped)="onDrag($event)">
+  <div *ngFor="let item of currentTree; trackBy: trackById"
+    class="side-item" [ngClass]="{ 'side-item-active': item.id === currentSelectionId }"
+    cdkDrag cdkDragLockAxis="y"
+    (click)="onSelect(item)"
+  >
+    <div class="side-item-content">
+      <div class="side-item-mover-button" cdkDragHandle>
+        <mat-icon svgIcon="handle"></mat-icon>
+      </div>
+      <div class="side-item-label">
+        {{ item.name }}
+      </div>
+      <div *ngIf="!item.isGroup" class="side-entry-selector">
+        <mat-icon svgIcon="forward"></mat-icon>
+      </div>
+      <div *ngIf="item.isGroup" class="side-group-count">
+        {{ item.children.length ? '' + item.children.length + ' Item' + (item.children.length === 1 ? '' : 's') : 'Empty' }}
+      </div>
+    </div>
+    <div *cdkDragPreview class="side-item-drag-preview">
+      {{ item.name }}
+    </div>
+    <div *cdkDragPlaceholder class="side-item-drag-placeholder"></div>
+  </div>
+  <div *ngIf="currentTree.length === 0" class="side-no-content">
+    No {{ label }}
+  </div>
+</div>

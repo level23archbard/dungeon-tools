@@ -1,4 +1,4 @@
-@import 'src/styles/colors';
+@use 'src/styles/colors' as *;
 
 @mixin button-text {
   padding: 1rem;

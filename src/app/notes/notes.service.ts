@@ -1,86 +1,134 @@
 import { Injectable } from '@angular/core';
 import { StorageKey, StorageService } from '@level23archbard/storage-service';
-import { AsyncSubject, Observable, of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map, take } from 'rxjs/operators';
+
+import { byId } from 'src/common/id.utils';
+import { findInTree, findSubtreeInTree, flatTree, getGroupAtHierarchy, itemIsEntry } from 'src/common/tree.utils';
+import { TreeGroup, TreeHierarchy } from 'src/common/types';
 
 import { IdService } from '../id.service';
 import { ExportableService, ExportedData } from '../settings/export.model';
-import { NoteData, NoteEntry } from './notes.model';
+import { NoteData, NoteEntry, NoteStore } from './notes.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class NotesService implements ExportableService {
 
-  private noteEntries: StorageKey<NoteEntry[]>;
+  private noteEntries: StorageKey<NoteStore>;
 
   constructor(private id: IdService, private storage: StorageService) {
     this.noteEntries = this.storage.jsonKey('noteEntries');
   }
 
-  get noteEntriesList(): Observable<NoteEntry[]> {
+  get noteStore(): Observable<NoteStore> {
     return this.noteEntries.getWithDefault([]);
   }
 
   getNoteEntry(id: string): Observable<NoteEntry | undefined> {
-    return this.noteEntriesList.pipe(map((entries) => entries.find((entry) => entry.id === id)));
+    return this.noteStore.pipe(map((store) => findInTree(store, (item) => item.id === id && itemIsEntry(item))));
   }
 
-  private operateOnNoteEntries<T>(operation: (noteEntries: NoteEntry[]) => T): Observable<T> {
-    const returnSubject = new AsyncSubject<T>();
-    this.noteEntries.get().pipe(
-      take(1),
-      map((data) => {
-        const noteEntries = data || [];
-        const returnValue = operation(noteEntries);
-        this.noteEntries.set(noteEntries);
-        return returnValue;
-      }),
-    ).subscribe(returnSubject);
-    return returnSubject.asObservable();
+  get noteFlatEntriesList(): Observable<NoteEntry[]> {
+    return this.noteStore.pipe(map((store) => flatTree(store)));
   }
 
-  addNoteEntry(name?: string): Observable<string> {
-    return this.operateOnNoteEntries((noteEntries) => {
+  private operateOnNoteStore<T>(operation: (noteStore: NoteStore) => T): T {
+    const noteStore = this.noteEntries.getCurrentWithDefault([]);
+    const returnValue = operation(noteStore);
+    this.noteEntries.set(noteStore);
+    return returnValue;
+  }
+
+  addNoteEntry(intoHierarchy: TreeHierarchy, name?: string): string {
+    return this.operateOnNoteStore((noteStore) => {
       const id = this.id.generate();
-      noteEntries.unshift({
-        id,
-        name: name || 'New Note',
-      });
+      const newNote: NoteEntry = { id, name: name || 'New Note' };
+      const group = getGroupAtHierarchy(noteStore, intoHierarchy);
+      (group?.children || noteStore).unshift(newNote);
       return id;
     });
   }
 
-  editNoteEntry(id: string, modify: (noteEntry: NoteEntry) => NoteEntry): Observable<void> {
-    return this.operateOnNoteEntries((noteEntries) => {
-      const index = noteEntries.findIndex((entry) => entry.id === id);
-      if (index >= 0) {
-        noteEntries[index] = modify(noteEntries[index]);
+  addNoteGroup(intoHierarchy: TreeHierarchy, name?: string): string {
+    return this.operateOnNoteStore((noteStore) => {
+      const id = this.id.generate();
+      const newGroup: TreeGroup = { id, name: name || 'New Group', isGroup: true, children: [] };
+      const group = getGroupAtHierarchy(noteStore, intoHierarchy);
+      (group?.children || noteStore).unshift(newGroup);
+      return id;
+    });
+  }
+
+  editNoteEntry(id: string, modify: (noteEntry: NoteEntry) => NoteEntry): void {
+    return this.operateOnNoteStore((noteStore) => {
+      const subtree = findSubtreeInTree(noteStore, byId(id));
+      if (subtree) {
+        const index = subtree.findIndex(byId(id));
+        subtree[index] = modify(subtree[index]);
       } else {
         throw new Error(`Editing note entry with id ${id} not found`);
       }
     });
   }
 
-  moveNoteEntry(from: number, to: number): Observable<void> {
-    return this.operateOnNoteEntries((noteEntries) => {
-      if (from < 0 || to < 0 || from >= noteEntries.length || to >= noteEntries.length) {
-        throw new Error(`Moving note entries from ${from} to ${to}, index out of bounds of array length ${noteEntries.length}`);
+  editNoteGroup(id: string, modify: (noteGroup: TreeGroup) => TreeGroup): void {
+    return this.operateOnNoteStore((noteStore) => {
+      const subtree = findSubtreeInTree(noteStore, byId(id));
+      if (subtree) {
+        const index = subtree.findIndex(byId(id));
+        const group = subtree[index];
+        if (group.isGroup) {
+          subtree[index] = modify(group);
+        } else {
+          throw new Error(`Editing note group with id ${id} not a group`);
+        }
+      } else {
+        throw new Error(`Editing note group with id ${id} not found`);
       }
-      noteEntries.splice(to, 0, ...noteEntries.splice(from, 1));
     });
   }
 
-  deleteNoteEntry(id: string): Observable<void> {
+  moveNoteEntry(inHierarchy: TreeHierarchy, from: number, to: number): void {
+    return this.operateOnNoteStore((noteStore) => {
+      const group = getGroupAtHierarchy(noteStore, inHierarchy);
+      const array = group?.children || noteStore;
+      if (from < 0 || to < 0 || from >= array.length || to >= array.length) {
+        throw new Error(`Moving note entries from ${from} to ${to}, index out of bounds of array length ${array.length}`);
+      }
+      array.splice(to, 0, ...array.splice(from, 1));
+    });
+  }
+
+  deleteNoteEntry(id: string): void {
     // Remove the note value
     this.getNoteValueStorageKey(id).set(null);
     // Remove from the note entries
-    return this.operateOnNoteEntries((noteEntries) => {
-      const index = noteEntries.findIndex((entry) => entry.id === id);
-      if (index >= 0) {
-        noteEntries.splice(index, 1);
+    this.operateOnNoteStore((noteStore) => {
+      const subtree = findSubtreeInTree(noteStore, byId(id));
+      if (subtree) {
+        const index = subtree.findIndex(byId(id));
+        subtree.splice(index, 1);
       } else {
         throw new Error(`Deleting note entry with id ${id} not found`);
+      }
+    });
+  }
+
+  deleteNoteGroup(id: string): void {
+    this.operateOnNoteStore((noteStore) => {
+      const subtree = findSubtreeInTree(noteStore, byId(id));
+      if (subtree) {
+        const index = subtree.findIndex(byId(id));
+        const group = subtree[index];
+        if (!group.isGroup) {
+          throw new Error(`Deleting note group with id ${id} not a group`);
+        }
+        subtree.splice(index, 1);
+        subtree.push(...group.children);
+      } else {
+        throw new Error(`Deleting note group with id ${id} not found`);
       }
     });
   }

@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { combineLatest, Observable, ReplaySubject } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 
+import { Entries } from 'src/common/types';
 import { InscriptionLinkEvaluator } from 'src/templates/inscription/inscription.model';
 
-import { Entries } from './entries.model';
 import { MapEntry } from './maps/maps.model';
 import { MapsService } from './maps/maps.service';
 import { NoteEntry } from './notes/notes.model';
@@ -28,7 +28,7 @@ export class LinkerService implements InscriptionLinkEvaluator {
     private notes: NotesService,
   ) {
     this.maps.mapEntriesList.subscribe(this.mapsCache);
-    this.notes.noteEntriesList.subscribe(this.notesCache);
+    this.notes.noteFlatEntriesList.subscribe(this.notesCache);
   }
 
   private reduce(str: string): string {

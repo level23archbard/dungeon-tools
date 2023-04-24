@@ -1,12 +1,15 @@
-<lxs-side-header
-  [leftAction]="showHelp ? { icon: 'question', action: onClickHelp } : undefined"
-  [rightAction]="{ icon: 'add', action: onClickAdd }"
->{{ label }}</lxs-side-header>
+<lxs-side-header>
+  <lxs-action lxsSideHeaderLeft *ngIf="showHelp" icon="question" label="Help" (action)="helpEvent.emit()"></lxs-action>
+  <ng-template lxsSideHeaderLabel>
+    {{ label }}
+  </ng-template>
+  <lxs-action lxsSideHeaderRight icon="add" label="Add" (action)="addEvent.emit()"></lxs-action>
+</lxs-side-header>
 <div *ngIf="entries" class="side-entries" cdkDropList (cdkDropListDropped)="onDrag($event)">
   <div *ngFor="let entry of entries; trackBy: trackById"
     class="side-entry" [ngClass]="{ 'side-entry-active': entry.id === selectedEntryId }"
     cdkDrag cdkDragLockAxis="y"
-    (click)="onClickEntry(entry)"
+    (click)="selectEvent.emit(entry.id)"
   >
     <div class="side-entry-content">
       <div class="side-entry-mover-button" cdkDragHandle>

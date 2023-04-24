@@ -1,0 +1,19 @@
+@use 'src/styles/buttons' as *;
+
+:host {
+  display: block;
+  width: 14rem;
+}
+
+.title {
+  text-align: center;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.button {
+  @include button-text();
+}

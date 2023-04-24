@@ -1,4 +1,4 @@
-@import 'src/styles/buttons';
+@use 'src/styles/buttons' as *;
 
 :host {
   display: block;

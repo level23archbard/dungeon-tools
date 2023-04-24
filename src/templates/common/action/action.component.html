@@ -1,0 +1,12 @@
+<ng-template #smallIconButton>
+  <div class="small-icon-button"
+    [matTooltip]="label || ''" matTooltipClass="lxs-tooltip" [matTooltipShowDelay]="500"
+    (click)="action.emit()"
+  >
+    <mat-icon *ngIf="icon" [svgIcon]="icon"></mat-icon>
+  </div>
+</ng-template>
+
+<ng-container *ngIf="display">
+  <ng-container *ngTemplateOutlet="this[display]"></ng-container>
+</ng-container>

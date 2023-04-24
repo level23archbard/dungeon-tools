@@ -1,22 +1,18 @@
 <header class="header">
-  <div *ngIf="leftAction" class="button" (click)="leftAction.action()">
-    <mat-icon [svgIcon]="leftAction.icon"></mat-icon>
-  </div>
-  <div class="title">
-    <ng-content></ng-content>
-  </div>
-  <ng-container *ngIf="rightActions">
-    <ng-container *ngFor="let action of rightActions">
-      <ng-container *ngTemplateOutlet="actionButton; context: { $implicit: action }"></ng-container>
-    </ng-container>
+  <ng-container *ngFor="let action of leftActions">
+    <ng-container *ngTemplateOutlet="action.action.smallIconButton"></ng-container>
   </ng-container>
-  <div *ngIf="rightAction" class="button" (click)="rightAction.action()">
-    <mat-icon [svgIcon]="rightAction.icon"></mat-icon>
+  <div class="title">
+    <ng-container *ngIf="label">
+      <ng-container *ngTemplateOutlet="label.template"></ng-container>
+    </ng-container>
   </div>
+  <ng-container *ngFor="let action of rightActions">
+    <ng-container *ngTemplateOutlet="action.action.smallIconButton"></ng-container>
+  </ng-container>
 </header>
-
-<ng-template #actionButton let-action>
-  <div class="button" (click)="action.action()">
-    <mat-icon [svgIcon]="action.icon"></mat-icon>
-  </div>
-</ng-template>
+<div *ngIf="toolbarActions.length" class="toolbar">
+  <ng-container *ngFor="let action of toolbarActions">
+    <ng-container *ngTemplateOutlet="action.action.smallIconButton"></ng-container>
+  </ng-container>
+</div>

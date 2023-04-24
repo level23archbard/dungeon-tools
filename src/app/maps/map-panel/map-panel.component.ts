@@ -1,11 +1,9 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 
 import { LinkerService } from 'src/app/linker.service';
-import { ConfirmDialogComponent } from 'src/templates/confirm-dialog/confirm-dialog.component';
-import { SideHeaderAction } from 'src/templates/side-header/side-header.component';
+import { ConfirmDialogService } from 'src/templates/confirm-dialog/confirm-dialog.service';
 
 import { MapData, MapEntry } from '../maps.model';
 import { MapsService } from '../maps.service';
@@ -31,7 +29,7 @@ export class MapPanelComponent implements OnChanges {
   imageCheckStatus?: string;
   private subscriptions = new Subscription();
 
-  constructor(private dialog: MatDialog, public linker: LinkerService, private maps: MapsService) {}
+  constructor(private dialog: ConfirmDialogService, public linker: LinkerService, private maps: MapsService) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.mapEntry) {
@@ -44,38 +42,22 @@ export class MapPanelComponent implements OnChanges {
     }
   }
 
-  backAction: SideHeaderAction = {
-    icon: 'back',
-    action: () => {
-      this.clickBack.emit();
-    },
-  };
+  onRename(): void {
+    this.isRenaming = true;
+  }
 
-  renameAction: SideHeaderAction = {
-    icon: 'quill',
-    action: () => {
-      this.isRenaming = true;
-    },
-  };
+  onRenameCancel(): void {
+    this.isRenaming = false;
+    this.renamingControl.setValue(this.mapEntry.name);
+  }
 
-  renameCancelAction: SideHeaderAction = {
-    icon: 'close',
-    action: () => {
-      this.isRenaming = false;
-      this.renamingControl.setValue(this.mapEntry.name);
-    },
-  };
-
-  renameSaveAction: SideHeaderAction = {
-    icon: 'check',
-    action: () => {
-      this.isRenaming = false;
-      this.maps.editMapEntry(this.mapEntry.id, (mapEntry) => {
-        mapEntry.name = this.renamingControl.value;
-        return mapEntry;
-      });
-    },
-  };
+  onRenameSave(): void {
+    this.isRenaming = false;
+    this.maps.editMapEntry(this.mapEntry.id, (mapEntry) => {
+      mapEntry.name = this.renamingControl.value;
+      return mapEntry;
+    });
+  }
 
   onMapNoteChanged(newValue: string): void {
     this.mapData.note = newValue;
@@ -142,8 +124,8 @@ export class MapPanelComponent implements OnChanges {
       this.maps.updateMapData(this.mapEntry.id, mapData);
     };
     if (shouldWarn) {
-      this.subscriptions.add(this.dialog.open(ConfirmDialogComponent, { data: { message: 'Are you sure you want to delete these tiles?' }})
-        .afterClosed().subscribe((confirm) => {
+      this.subscriptions.add(this.dialog.open({ message: 'Are you sure you want to delete these tiles?' })
+        .subscribe((confirm) => {
           if (confirm) { complete(); }
         }));
     } else {

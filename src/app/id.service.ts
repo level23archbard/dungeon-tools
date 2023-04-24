@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 
+import { Id } from 'src/common/types';
+
 @Injectable({
   providedIn: 'root',
 })
 export class IdService {
   constructor() {}
 
-  generate(): string {
+  generate(): Id {
     const options = '0123456789abcdefghjkmnpqrstuwxyz'.split('');
     const optionsLength = options.length;
     const id: string[] = [];

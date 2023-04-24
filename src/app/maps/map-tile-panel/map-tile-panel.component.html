@@ -1,4 +1,9 @@
-<lxs-side-header [leftAction]="backAction">Tile {{ tileData.col }}, {{ tileData.row }}</lxs-side-header>
+<lxs-side-header>
+  <lxs-action lxsSideHeaderLeft icon="back" [label]="mapEntry.name" (action)="clickBack.emit()"></lxs-action>
+  <ng-template lxsSideHeaderLabel>
+    Tile {{ tileData.col }}, {{ tileData.row }}
+  </ng-template>
+</lxs-side-header>
 
 <h2 class="section-header">Note</h2>
 <lxs-inscription-editor class="note"

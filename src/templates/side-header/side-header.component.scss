@@ -1,24 +1,38 @@
-@import 'src/styles/buttons';
+@use 'src/styles/colors' as *;
 
 .header {
   display: flex;
-  flex-flow: row;
+  flex-flow: row nowrap;
   justify-content: center;
   align-items: center;
   border-bottom: 0.0625rem solid $side-menu-border;
   height: 3rem;
   background-color: $side-menu-header;
   color: $text;
+
+  .title {
+    flex: 1 1;
+    min-width: 0;
+    text-align: center;
+    color: $text;
+  }
+
+  :not(.title) {
+    flex: none;
+  }
 }
 
-.title {
-  flex: 1 1;
-  min-width: 0;
-  text-align: center;
+.toolbar {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-evenly;
+  align-items: center;
+  border-bottom: 0.0625rem solid $side-menu-border;
+  height: 2.25rem;
+  background-color: $side-menu-toolbar;
   color: $text;
-}
 
-.button {
-  flex: none;
-  @include button-icon(2rem, 2rem);
+  > {
+    flex: none;
+  }
 }

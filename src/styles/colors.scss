@@ -27,6 +27,7 @@ $side-menu-border: $card-border;
 $side-menu-selected: $bar-selected;
 $side-menu-header: $card;
 $side-menu-header-highlight: $side-menu-background;
+$side-menu-toolbar: #bbb;
 
 $button-submit-background: $accent;
 $button-submit-selected: $card-highlight;
@@ -35,6 +36,8 @@ $button-submit-primary-highlight: $bar-primary-highlight;
 
 $overlay: rgba(0,0,0,0.3);
 $overlay-shadow: #11111160;
+
+$tooltip: rgba(51,51,51,0.9);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".

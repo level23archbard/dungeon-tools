@@ -1,10 +1,12 @@
-<lxs-side-listing side
+<lxs-side-tree side
   label="Notes"
-  [entries]="noteEntries"
+  [tree]="noteStore"
   [selectedEntryId]="activeNoteEntryId"
-  (addEvent)="onClickAddNoteEntry()"
+  (addEvent)="onClickAddNoteEntry($event)"
   (selectEvent)="onClickNoteEntry($event)"
   (moveEvent)="onClickMoveNoteEntry($event)"
   [showHelp]="true"
   (helpEvent)="onClickAboutNotes()"
-></lxs-side-listing>
+  (renameGroupEvent)="renameGroupSubject.next($event)"
+  (deleteGroupEvent)="deleteGroupSubject.next($event)"
+></lxs-side-tree>

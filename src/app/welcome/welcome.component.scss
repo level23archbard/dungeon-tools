@@ -1,6 +1,5 @@
-@import 'src/styles/colors';
-@import 'src/styles/buttons';
-@import 'src/styles/card';
+@use 'src/styles/colors' as *;
+@use 'src/styles/buttons' as *;
 
 .container {
   display: block;

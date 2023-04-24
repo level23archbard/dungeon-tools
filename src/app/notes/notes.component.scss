@@ -1,5 +1,6 @@
-@import 'src/styles/card';
-@import 'src/styles/buttons';
+@use 'src/styles/colors' as *;
+@use 'src/styles/buttons' as *;
+@use 'src/styles/card' as *;
 
 .header {
   display: flex;

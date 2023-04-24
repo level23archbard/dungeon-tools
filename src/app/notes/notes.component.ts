@@ -1,10 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatestWith, NEVER, Observable, of, Subscription, switchMap } from 'rxjs';
 
-import { ConfirmDialogComponent } from 'src/templates/confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogService } from 'src/templates/confirm-dialog/confirm-dialog.service';
 
 import { SettingsService } from '../settings/settings.service';
 import { NotesService } from './notes.service';
@@ -26,7 +25,7 @@ export class NotesComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private dialog: MatDialog,
+    private dialog: ConfirmDialogService,
     private settings: SettingsService,
     private notes: NotesService,
   ) {}
@@ -95,8 +94,8 @@ export class NotesComponent implements OnInit, OnDestroy {
 
   onClickDelete(): void {
     this.subscriptions.add(
-      this.dialog.open(ConfirmDialogComponent, { data: { message: 'Are you sure you want to delete this note?' }})
-        .afterClosed().subscribe((confirm) => {
+      this.dialog.open({ message: 'Are you sure you want to delete this note?' })
+        .subscribe((confirm) => {
           if (confirm) {
             this.isDeleting = true;
             this.settings.setSetting('notesSelectedId', null);
