@@ -5,9 +5,11 @@
     {{ currentGroup ? currentGroup.name : label }}
   </ng-template>
   <lxs-action lxsSideHeaderRight icon="add" label="Add" (action)="addEvent.emit({ type: 'entry', hierarchy: currentHierarchy })"></lxs-action>
-  <lxs-action lxsSideHeaderToolbar *ngIf="currentGroup" icon="delete" label="Delete Group" (action)="deleteGroupEvent.emit(currentGroup)"></lxs-action>
-  <lxs-action lxsSideHeaderToolbar *ngIf="currentGroup" icon="quill" label="Rename Group" (action)="renameGroupEvent.emit(currentGroup)"></lxs-action>
-  <lxs-action lxsSideHeaderToolbar icon="add" label="Add Group" (action)="addEvent.emit({ type: 'group', hierarchy: currentHierarchy })"></lxs-action>
+  <lxs-action lxsSideHeaderRight *ngIf="!showGroupToolbar" icon="expand" label="Show Group Toolbar" (action)="onClickShowGroupToolbar(true)"></lxs-action>
+  <lxs-action lxsSideHeaderRight *ngIf="showGroupToolbar" icon="collapse" label="Hide Group Toolbar" (action)="onClickShowGroupToolbar(false)"></lxs-action>
+  <lxs-action lxsSideHeaderToolbar *ngIf="showGroupToolbar && currentGroup" icon="delete" label="Delete Group" (action)="deleteGroupEvent.emit(currentGroup)"></lxs-action>
+  <lxs-action lxsSideHeaderToolbar *ngIf="showGroupToolbar && currentGroup" icon="quill" label="Rename Group" (action)="renameGroupEvent.emit(currentGroup)"></lxs-action>
+  <lxs-action lxsSideHeaderToolbar *ngIf="showGroupToolbar" icon="add" label="Add Group" (action)="addEvent.emit({ type: 'group', hierarchy: currentHierarchy })"></lxs-action>
 </lxs-side-header>
 <div *ngIf="currentTree" class="side-tree" cdkDropList (cdkDropListDropped)="onDrag($event)">
   <div *ngFor="let item of currentTree; trackBy: trackById"

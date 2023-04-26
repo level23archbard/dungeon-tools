@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, Output, SimpleChanges } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
@@ -15,7 +15,7 @@ type MapDirection = 'top' | 'right' | 'bottom' | 'left';
   templateUrl: './map-panel.component.html',
   styleUrls: ['./map-panel.component.scss'],
 })
-export class MapPanelComponent implements OnChanges {
+export class MapPanelComponent implements OnChanges, OnDestroy {
 
   @Input() mapEntry!: MapEntry;
   @Input() mapData!: MapData;
@@ -40,6 +40,10 @@ export class MapPanelComponent implements OnChanges {
     if (changes.mapData) {
       this.backgroundImageControl.setValue(this.mapData.backgroundImage);
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   onRename(): void {

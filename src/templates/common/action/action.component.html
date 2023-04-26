@@ -1,3 +1,12 @@
+<ng-template #iconButton>
+  <div class="icon-button"
+    [matTooltip]="label || ''" matTooltipClass="lxs-tooltip" [matTooltipShowDelay]="500"
+    (click)="action.emit()"
+  >
+    <mat-icon *ngIf="icon" [svgIcon]="icon"></mat-icon>
+  </div>
+</ng-template>
+
 <ng-template #smallIconButton>
   <div class="small-icon-button"
     [matTooltip]="label || ''" matTooltipClass="lxs-tooltip" [matTooltipShowDelay]="500"

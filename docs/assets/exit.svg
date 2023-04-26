@@ -1,0 +1,12 @@
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+ <g id="Layer_1">
+  <line id="svg_16" y2="8" x2="17" y1="0" x1="17" stroke-width="2" stroke="currentColor" fill="none"/>
+  <line id="svg_17" y2="1" x2="16" y1="1" x1="0" stroke-width="2" stroke="currentColor" fill="none"/>
+  <line id="svg_18" y2="23" x2="1" y1="1" x1="1" stroke-width="2" stroke="currentColor" fill="none"/>
+  <line id="svg_20" y2="23" x2="16" y1="23" x1="0" stroke-width="2" stroke="currentColor" fill="none"/>
+  <line id="svg_21" y2="16" x2="17" y1="24" x1="17" stroke-width="2" stroke="currentColor" fill="none"/>
+  <line id="svg_22" y2="12" x2="23" y1="12" x1="12" stroke-width="2" stroke="currentColor" fill="none"/>
+  <line id="svg_23" y2="12.5" x2="23.5" y1="8" x1="19" stroke-width="2" stroke="currentColor" fill="none"/>
+  <line id="svg_24" y2="11.5" x2="23.5" y1="16" x1="19" stroke-width="2" stroke="currentColor" fill="none"/>
+ </g>
+</svg>

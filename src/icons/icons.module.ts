@@ -27,6 +27,7 @@ export class IconsModule {
     this.addIcon('close');
     this.addIcon('collapse');
     this.addIcon('delete');
+    this.addIcon('exit');
     this.addIcon('expand');
     this.addIcon('forward');
     this.addIcon('handle');

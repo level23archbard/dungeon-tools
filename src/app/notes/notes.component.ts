@@ -1,9 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { UntypedFormControl } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { combineLatestWith, NEVER, Observable, of, Subscription, switchMap } from 'rxjs';
+import { combineLatestWith, NEVER, Observable, of, Subject, Subscription, switchMap, take } from 'rxjs';
 
+import { byId } from 'src/common/id.utils';
+import { findHierarchyInTree } from 'src/common/tree.utils';
 import { ConfirmDialogService } from 'src/templates/confirm-dialog/confirm-dialog.service';
+import { TreeDialogService } from 'src/templates/tree-dialog/tree-dialog.service';
 
 import { SettingsService } from '../settings/settings.service';
 import { NotesService } from './notes.service';
@@ -19,13 +22,17 @@ export class NotesComponent implements OnInit, OnDestroy {
   activeNoteEntryId?: string;
   activeNoteEntryName?: string;
   isRenaming = false;
-  renamingControl = new UntypedFormControl('');
+  renamingControl = new FormControl('', { nonNullable: true });
   isDeleting = false;
+
+  moveNoteSubject = new Subject<void>();
+  deleteNoteSubject = new Subject<void>();
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private dialog: ConfirmDialogService,
+    private confirmDialog: ConfirmDialogService,
+    private treeDialog: TreeDialogService,
     private settings: SettingsService,
     private notes: NotesService,
   ) {}
@@ -58,6 +65,30 @@ export class NotesComponent implements OnInit, OnDestroy {
         this.router.navigate(['notes-not-found', id]);
       }
     }));
+    this.subscriptions.add(this.moveNoteSubject.pipe(
+      switchMap(() => this.notes.noteStore.pipe(take(1))),
+      switchMap((noteStore) => {
+        if (!this.activeNoteEntryId) { return NEVER; }
+        const hierarchy = findHierarchyInTree(noteStore, byId(this.activeNoteEntryId));
+        if (!hierarchy) { return NEVER; }
+        return this.treeDialog.open({ message: 'Select Destination:', tree: noteStore, currentHierarchy: hierarchy, rootLabel: 'Notes' });
+      }),
+    ).subscribe((newHierarchy) => {
+      if (this.activeNoteEntryId && newHierarchy) {
+        this.notes.moveNoteEntryToHierarchy(this.activeNoteEntryId, newHierarchy);
+      }
+    }));
+    this.subscriptions.add(this.deleteNoteSubject.pipe(
+      switchMap(() =>
+        this.confirmDialog.open({ message: 'Are you sure you want to delete this note?' }),
+      ),
+    ).subscribe((confirm) => {
+      if (confirm) {
+        this.isDeleting = true;
+        this.settings.setSetting('notesSelectedId', null);
+        this.notes.deleteNoteEntry(this.activeNoteEntryId || '');
+      }
+    }));
   }
 
   ngOnDestroy(): void {
@@ -81,7 +112,7 @@ export class NotesComponent implements OnInit, OnDestroy {
 
   onClickRenameCancel(): void {
     this.isRenaming = false;
-    this.renamingControl.setValue(this.activeNoteEntryName);
+    this.renamingControl.setValue(this.activeNoteEntryName || '');
   }
 
   onClickRenameSave(): void {
@@ -90,18 +121,5 @@ export class NotesComponent implements OnInit, OnDestroy {
       noteEntry.name = this.renamingControl.value;
       return noteEntry;
     });
-  }
-
-  onClickDelete(): void {
-    this.subscriptions.add(
-      this.dialog.open({ message: 'Are you sure you want to delete this note?' })
-        .subscribe((confirm) => {
-          if (confirm) {
-            this.isDeleting = true;
-            this.settings.setSetting('notesSelectedId', null);
-            this.notes.deleteNoteEntry(this.activeNoteEntryId || '');
-          }
-        }),
-    );
   }
 }

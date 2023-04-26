@@ -1,5 +1,9 @@
 @use 'src/styles/buttons';
 
+.icon-button {
+  @include buttons.button-icon(3rem, 3rem);
+}
+
 .small-icon-button {
   @include buttons.button-icon(2rem, 2rem);
 }

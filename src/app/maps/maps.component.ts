@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, NEVER, Observable, of, Subscription, switchMap } from 'rxjs';
 
@@ -34,7 +34,7 @@ type MapsComponentState = MapsComponentListState | MapsComponentSelectedState | 
   templateUrl: './maps.component.html',
   styleUrls: ['./maps.component.scss'],
 })
-export class MapsComponent implements OnInit {
+export class MapsComponent implements OnInit, OnDestroy {
 
   private subscriptions = new Subscription();
 
@@ -88,6 +88,10 @@ export class MapsComponent implements OnInit {
         this.router.navigate(['maps-not-found', id]);
       }
     }));
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   private redirectToRecent(): Observable<never> {

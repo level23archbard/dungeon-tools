@@ -35,6 +35,8 @@ export class SideTreeComponent implements OnChanges {
   @Output() renameGroupEvent = new EventEmitter<TreeGroup>();
   @Output() deleteGroupEvent = new EventEmitter<TreeGroup>();
 
+  showGroupToolbar = false;
+
   currentHierarchy: TreeHierarchy = [];
   currentGroup?: TreeGroup;
   currentTree?: TreeItem[];
@@ -59,6 +61,10 @@ export class SideTreeComponent implements OnChanges {
       this.currentTree = this.tree;
     }
     this.reassignSeletion();
+  }
+
+  onClickShowGroupToolbar(show: boolean): void {
+    this.showGroupToolbar = show;
   }
 
   onSelect(item: TreeItem): void {

@@ -101,6 +101,21 @@ export class NotesService implements ExportableService {
     });
   }
 
+  moveNoteEntryToHierarchy(id: string, toHierarchy: TreeHierarchy): void {
+    return this.operateOnNoteStore((noteStore) => {
+      const fromSubtree = findSubtreeInTree(noteStore, byId(id));
+      if (!fromSubtree) {
+        throw new Error(`Moving note entry ${id}, not found`);
+      }
+      const fromIndex = fromSubtree.findIndex(byId(id));
+      const entry = fromSubtree[fromIndex];
+      const toGroup = getGroupAtHierarchy(noteStore, toHierarchy);
+      const toArray = toGroup?.children || noteStore;
+      fromSubtree.splice(fromIndex, 1);
+      toArray.push(entry);
+    });
+  }
+
   deleteNoteEntry(id: string): void {
     // Remove the note value
     this.getNoteValueStorageKey(id).set(null);

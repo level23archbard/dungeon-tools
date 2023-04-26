@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output, TemplateRef, ViewChild } from '@angular/core';
 
-export type ActionComponentDisplay = keyof Pick<ActionComponent, 'smallIconButton'>;
+export type ActionComponentDisplay = keyof Pick<ActionComponent, 'iconButton' | 'smallIconButton'>;
 
 @Component({
   selector: 'lxs-action',
@@ -13,7 +13,8 @@ export class ActionComponent {
   @Input() icon?: string;
   @Output() action = new EventEmitter();
 
-  @Input() display: ActionComponentDisplay | null = 'smallIconButton';
+  @Input() display: ActionComponentDisplay | null = 'iconButton';
 
+  @ViewChild('iconButton', { static: true }) iconButton!: TemplateRef<unknown>;
   @ViewChild('smallIconButton', { static: true }) smallIconButton!: TemplateRef<unknown>;
 }

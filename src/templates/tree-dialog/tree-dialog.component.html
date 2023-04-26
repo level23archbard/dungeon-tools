@@ -1,0 +1,32 @@
+<h3 class="title">{{ data.message }}</h3>
+<div class="current-path">
+  <lxs-action *ngIf="currentHierarchyNames.length > 0" icon="back" label="Up" display="smallIconButton" (action)="onClickBack()"></lxs-action>
+  <span>
+    <strong *ngIf="currentHierarchyNames.length === 0; else rootLabel">
+      <ng-container [ngTemplateOutlet]="rootLabel"></ng-container>
+    </strong>
+    <ng-template #rootLabel>{{ data.rootLabel }}</ng-template>
+  </span>
+  <span *ngFor="let name of currentHierarchyNames; let idx = index">
+    >
+    <strong *ngIf="idx === currentHierarchyNames.length - 1; else nameLabel">
+      <ng-container [ngTemplateOutlet]="nameLabel"></ng-container>
+    </strong>
+    <ng-template #nameLabel>{{ name }}</ng-template>
+  </span>
+</div>
+<div class="tree-list">
+  <div *ngFor="let group of currentTree; trackBy: trackById" class="tree-group" (click)="onClickGroup(group)">
+    <span class="name">{{ group.name }}</span>
+    <mat-icon class="icon" svgIcon="forward"></mat-icon>
+  </div>
+  <div *ngIf="currentTree.length === 0" class="tree-group">No groups</div>
+</div>
+<div class="buttons">
+  <div class="button" (click)="onClickCancel()">
+    Cancel
+  </div>
+  <div class="button" (click)="onClickSubmit()">
+    Move Here
+  </div>
+</div>

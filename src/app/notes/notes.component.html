@@ -8,21 +8,14 @@
           Rename:
           <input type="text" [formControl]="renamingControl" />
         </label>
-        <div class="header-button" (click)="onClickRenameCancel()">
-          <mat-icon svgIcon="close"></mat-icon>
-        </div>
-        <div class="header-button" (click)="onClickRenameSave()">
-          <mat-icon svgIcon="check"></mat-icon>
-        </div>
+        <lxs-action icon="close" label="Cancel" (action)="onClickRenameCancel()"></lxs-action>
+        <lxs-action icon="check" label="Confirm" (action)="onClickRenameSave()"></lxs-action>
       </ng-container>
       <ng-template #notRenaming>
         <h1>{{ activeNoteEntryName }}</h1>
-        <div class="header-button" (click)="onClickRename()">
-          <mat-icon svgIcon="quill"></mat-icon>
-        </div>
-        <div class="header-button" (click)="onClickDelete()">
-          <mat-icon svgIcon="delete"></mat-icon>
-        </div>
+        <lxs-action icon="exit" label="Move Note" (action)="moveNoteSubject.next()"></lxs-action>
+        <lxs-action icon="quill" label="Rename Note" (action)="onClickRename()"></lxs-action>
+        <lxs-action icon="delete" label="Delete Note" (action)="deleteNoteSubject.next()"></lxs-action>
       </ng-template>
     </div>
     <div class="note-body">
